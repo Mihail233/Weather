@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "Users", indexes = {
         @Index(columnList = "login", unique = true, name = "user_login_index")
 })
+@Getter
+@NoArgsConstructor
 public class User {
 
     @Id

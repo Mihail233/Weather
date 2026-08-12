@@ -1,14 +1,15 @@
 package org.weather.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.flywaydb.core.Flyway;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.hibernate.HibernateTransactionManager;
 import org.springframework.orm.jpa.hibernate.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -16,6 +17,14 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfig {
+
+    private static final String HIBERNATE_DIALECT_KEY = "hibernate.dialect";
+    private static final String HIBERNATE_HBM_2_DDL_AUTO_KEY = "hibernate.hbm2ddl.auto";
+    private static final String HIBERNATE_SHOW_SQL_KEY = "hibernate.show_sql";
+    private static final String HIBERNATE_FORMAT_SQL_KEY = "hibernate.format_sql";
+    private static final String HIBERNATE_HIGHLIGHT_SQL_KEY = "hibernate.highlight_sql";
+    private static final String HIBERNATE_DEFAULT_SCHEMA_KEY = "hibernate.default_schema";
+
 
     @Value("${db.driver}")
     private String databaseDriver;
@@ -44,16 +53,17 @@ public class DatabaseConfig {
     @Value("${hibernate.default_schema}")
     private String hibernateSchema;
 
+    @Value("${hibernate.highlight_sql}")
+    private String hibernateHighlightSql;
+
     @Bean
     public DataSource dataSource() {
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDataSourceClassName(databaseDriver);
-        hikariConfig.setJdbcUrl(databaseUrl);
-        hikariConfig.setUsername(databaseUsername);
-        hikariConfig.setPassword(databasePassword);
-        hikariConfig.setPoolName("myHicariCp");
-
-        return new HikariDataSource(hikariConfig);
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(databaseDriver);
+        dataSource.setUrl(databaseUrl);
+        dataSource.setUsername(databaseUsername);
+        dataSource.setPassword(databasePassword);
+        return dataSource;
     }
 
     @Bean
@@ -61,32 +71,24 @@ public class DatabaseConfig {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
-        localSessionFactoryBean.setPackagesToScan("org/weather/entity");
-        localSessionFactoryBean.setHibernateProperties(getHibernateProperties());
+        localSessionFactoryBean.setPackagesToScan("org.weather.entity");
+        localSessionFactoryBean.setHibernateProperties(hibernateProperties());
         return localSessionFactoryBean;
     }
 
-
-    //    Ключевые параметры
-    //   .baselineVersion("0")     // Начальная версия миграций — автоматически создаёт базовую версию, если БД новая.
-    //    .validateOnMigrate(false)  — если false, Flyway пропустит проверку целостности миграций (полезно при разработке).
-    //    .outOfOrder(true)  — разрешает применять миграции не в порядке версий.
-    @Bean(initMethod = "migrate")
-    public Flyway flyway(DataSource dataSource) {
-        return Flyway.configure()
-                .dataSource(dataSource)  // Источник данных (БД)
-                .baselineOnMigrate(true)  // Создаёт baseline при первом запуске
-                .locations("classpath:db")
-                .load();
+    @Bean
+    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
+        return new HibernateTransactionManager(sessionFactory);
     }
 
-    private Properties getHibernateProperties() {
+    private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", hibernateDialect);
-        properties.setProperty("hibernate.show_sql", hibernateShowSql);
-        properties.setProperty("hibernate.hbm2ddl.auto", hibernateHbm2DdlAuto);
-        properties.setProperty("hibernate.format_sql", hibernateFormatSql);
-        properties.setProperty("hibernate.default_schema", hibernateSchema);
+        properties.setProperty(HIBERNATE_DIALECT_KEY, hibernateDialect);
+        properties.setProperty(HIBERNATE_SHOW_SQL_KEY, hibernateShowSql);
+        properties.setProperty(HIBERNATE_HBM_2_DDL_AUTO_KEY, hibernateHbm2DdlAuto);
+        properties.setProperty(HIBERNATE_FORMAT_SQL_KEY, hibernateFormatSql);
+        properties.setProperty(HIBERNATE_DEFAULT_SCHEMA_KEY, hibernateSchema);
+        properties.setProperty(HIBERNATE_HIGHLIGHT_SQL_KEY, hibernateHighlightSql);
         return properties;
     }
 }

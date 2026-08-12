@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "Locations")
+@Getter
+@NoArgsConstructor
 public class Location {
 
     @Id

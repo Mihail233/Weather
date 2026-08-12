@@ -15,21 +15,21 @@ public class TestService {
     protected final SessionFactory sessionFactory;
 
     public void add() {
-        User user = new User();
-
-        try (Session session = sessionFactory.openSession()) {
-            try {
-                session.beginTransaction();
-                session.persist(user);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                Transaction transaction = session.getTransaction();
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-                throw e;
-            }
-
-        }
+//        User user = new User("dsad333", "dsadasd");
+//        user.setTest("tewt1");
+//
+//        try (Session session = sessionFactory.openSession()) {
+//            try {
+//                session.beginTransaction();
+//                session.persist(user);
+//                session.getTransaction().commit();
+//            } catch (Exception e) {
+//                Transaction transaction = session.getTransaction();
+//                if (transaction != null) {
+//                    transaction.rollback();
+//                }
+//                throw e;
+//            }
+//        }
     }
 }
