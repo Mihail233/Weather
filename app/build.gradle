@@ -10,13 +10,13 @@ repositories {
     mavenCentral()
 }
 
-def springVersion = '7.0.8'
+def springVersion = '7.0.7'
 def springDataJpaVersion = '4.0.5'
 def springThymeLeafVersion = '3.1.5.RELEASE'
 def lombokVersion = '1.18.46'
 def mapstructVersion = '1.5.5.Final'
 def flywayVersion = '12.10.0'
-def hibernateCoreVersion = '6.4.10.Final'
+def hibernateCoreVersion = '7.4.0.Final'
 def hibernateValidatorVersion = '8.0.2.Final'
 def jakartaValidationVersion = '3.0.2'
 def jacksonDatabindVersion = '3.2.0'
@@ -28,19 +28,20 @@ dependencies {
     implementation "org.springframework:spring-webmvc:${springVersion}"
     implementation "org.springframework.data:spring-data-jpa:${springDataJpaVersion}"
     implementation "org.thymeleaf:thymeleaf-spring6:${springThymeLeafVersion}"
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     implementation "org.hibernate.orm:hibernate-core:${hibernateCoreVersion}"
     implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-    implementation "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
-    implementation "tools.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+    implementation 'org.mindrot:jbcrypt:0.4'
+//    implementation "tools.jackson.core:jackson-databind:${jacksonDatabindVersion}"
     implementation "org.flywaydb:flyway-core:${flywayVersion}"
     implementation "org.flywaydb:flyway-database-postgresql:${flywayVersion}"
 
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletVersion}"
+    compileOnly "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
 
     runtimeOnly "org.postgresql:postgresql:${postgresSqlVersion}"
 }
