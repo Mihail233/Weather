@@ -16,8 +16,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Это стоит делать в том случае, если ответственность за создание или обновление сущности, на которую ссылается столбец, лежит не на текущей сущности, а на другой.
-    //это если updatable = false, insertable = false
     @Column(nullable = false, updatable = false, length = 100)
     private String login;
 
