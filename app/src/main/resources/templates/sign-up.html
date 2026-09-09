@@ -20,7 +20,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
 
-            <form class="mt-4" method="post" th:action="@{/sign-up}" th:object="${signUpDTO}">
+            <form class="mt-4" method="post" th:action="@{/sign-up}" th:object="${signUpRequest}">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" th:field="*{username}" value="" required/>

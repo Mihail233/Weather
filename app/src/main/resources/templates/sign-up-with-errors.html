@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12"
-             th:object="${signUpDTO}" th:with="hasErrors=${#fields.hasErrors('global')}">
+             th:object="${signUpRequest}" th:with="hasErrors=${#fields.hasErrors('global')}">
             <div role="alert" th:class="${hasErrors} ? 'alert alert-danger'"
                  th:text="${hasErrors} ? ${T(org.weather.util.FormUtil).toString(#fields.detailedErrors('global'))}">
             </div>
@@ -29,7 +29,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-md-6 col-sm-12">
 
-            <form method="post" class="mt-4" th:action="@{/sign-up}" th:object="${signUpDTO}">
+            <form method="post" class="mt-4" th:action="@{/sign-up}" th:object="${signUpRequest}">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group has-validation" th:with="hasErrors=${#fields.hasErrors('username')}">

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignInForm {
+public class SignInRequest {
 
     @NotBlank(message = "Username cannot be empty")
     @Size(min = 5, max = 100, message = "Username must be between 5 and 20 characters long")
