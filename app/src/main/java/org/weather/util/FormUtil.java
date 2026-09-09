@@ -12,7 +12,7 @@ public class FormUtil {
 
     public static String toString(List<DetailedError> errors) {
         List<String> messages = new ArrayList<>();
-        for (DetailedError error: errors) {
+        for (DetailedError error : errors) {
             messages.add(error.getMessage());
         }
         return String.join(delimiter, messages);

@@ -9,6 +9,7 @@ import org.weather.repository.SessionRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+//здесь по большей части круды
 @Service
 @RequiredArgsConstructor
 public class SessionService {

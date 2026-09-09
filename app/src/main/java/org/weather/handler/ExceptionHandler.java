@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.weather.exception.PasswordMismatchException;
+import org.weather.exception.UserNotFoundException;
 import org.weather.exception.UserRegistrationException;
 
 @Component
@@ -19,6 +20,8 @@ public class ExceptionHandler {
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
             case UserRegistrationException userRegistrationException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
+            case UserNotFoundException userNotFoundException ->
+                    addErrorAndSetStatus(response, bindingResult, message, HttpStatus.NOT_FOUND);
             default ->
                     addErrorAndSetStatus(response, bindingResult, "Internal Server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
