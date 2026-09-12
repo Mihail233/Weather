@@ -6,13 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
+import org.springframework.web.context.request.WebRequestInterceptor;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
+import org.weather.Interceptor.CookieInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -60,5 +61,18 @@ public class SpringConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/images/");
         registry.addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
+    }
+
+    @Bean
+    public WebRequestInterceptor openEntityManagerInViewInterceptor() {
+        return new OpenEntityManagerInViewInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addWebRequestInterceptor(openEntityManagerInViewInterceptor());
+
+        CookieInterceptor cookieInterceptor = applicationContext.getBean(CookieInterceptor.class);
+        registry.addInterceptor(cookieInterceptor);
     }
 }
