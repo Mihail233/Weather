@@ -18,11 +18,11 @@ import org.weather.handler.ExceptionHandler;
 import org.weather.service.UserService;
 import org.weather.util.CookieUtil;
 
+import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private static final String USER_SESSION_COOKIE = "user_session";
-
     private final UserService userService;
     private final ExceptionHandler exceptionHandler;
 
