@@ -8,17 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.web.context.request.WebRequestInterceptor;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
-import org.weather.Interceptor.CookieInterceptor;
+import org.weather.web.interceptor.CookieInterceptor;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("org.weather")
-@EnableJpaRepositories("org.weather.repository")
+@EnableJpaRepositories("org.weather.data.repository")
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 

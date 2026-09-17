@@ -2,10 +2,10 @@ package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.weather.entity.Session;
-import org.weather.entity.User;
+import org.weather.data.entity.Session;
+import org.weather.data.entity.User;
+import org.weather.data.repository.SessionRepository;
 import org.weather.exception.SessionExpiredException;
-import org.weather.repository.SessionRepository;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -26,12 +26,18 @@ public class SessionService {
         return sessionRepository.findById(id);
     }
 
-    public void checkSessionValidity(Session session) {
+    public void deleteExpired(Session session) {
+        if (checkExpiration(session)) {
+            sessionRepository.delete(session);
+            //не особо нравится что здесь кидается ошибка
+            throw new SessionExpiredException("Session expired");
+        }
+    }
+
+    private boolean checkExpiration(Session session) {
         Instant expiredAt = session.getExpiresAt();
         Instant now = Instant.now();
 
-        if (expiredAt.getEpochSecond() <= now.getEpochSecond()) {
-            throw new SessionExpiredException("Session expired");
-        }
+        return expiredAt.getEpochSecond() <= now.getEpochSecond();
     }
 }

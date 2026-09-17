@@ -1,16 +1,12 @@
-package org.weather.controller;
+package org.weather.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.weather.entity.Session;
-import org.weather.entity.User;
-import org.weather.repository.SessionRepository;
-import org.weather.repository.UserRepository;
-import org.weather.service.SessionService;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.weather.util.CookieUtil;
-
-import java.time.Instant;
 
 @Controller
 @RequiredArgsConstructor

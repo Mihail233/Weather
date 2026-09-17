@@ -2,8 +2,8 @@ package org.weather.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,8 +15,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:/application.properties")
-public class DatabaseConfig {
+@PropertySource("classpath:test.properties")
+@ComponentScan("org.weather")
+public class TestDatabaseConfig {
 
     private static final String HIBERNATE_DIALECT_KEY = "hibernate.dialect";
     private static final String HIBERNATE_HBM_2_DDL_AUTO_KEY = "hibernate.hbm2ddl.auto";
@@ -26,34 +27,34 @@ public class DatabaseConfig {
     private static final String HIBERNATE_DEFAULT_SCHEMA_KEY = "hibernate.default_schema";
 
 
-    @Value("${db.driver}")
+    @Value("${test.db.driver}")
     private String databaseDriver;
 
-    @Value("${db.url}")
+    @Value("${test.db.url}")
     private String databaseUrl;
 
-    @Value("${db.username}")
+    @Value("${test.db.username}")
     private String databaseUsername;
 
-    @Value("${db.password}")
+    @Value("${test.db.password}")
     private String databasePassword;
 
-    @Value("${hibernate.dialect}")
+    @Value("${test.hibernate.dialect}")
     private String hibernateDialect;
 
-    @Value("${hibernate.show_sql}")
+    @Value("${test.hibernate.show_sql}")
     private String hibernateShowSql;
 
-    @Value("${hibernate.hbm2ddl.auto}")
+    @Value("${test.hibernate.hbm2ddl.auto}")
     private String hibernateHbm2DdlAuto;
 
-    @Value("${hibernate.format_sql}")
+    @Value("${test.hibernate.format_sql}")
     private String hibernateFormatSql;
 
-    @Value("${hibernate.default_schema}")
+    @Value("${test.hibernate.default_schema}")
     private String hibernateSchema;
 
-    @Value("${hibernate.highlight_sql}")
+    @Value("${test.hibernate.highlight_sql}")
     private String hibernateHighlightSql;
 
     @Bean
@@ -67,7 +68,6 @@ public class DatabaseConfig {
     }
 
     @Bean
-    @DependsOn("flyway")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());

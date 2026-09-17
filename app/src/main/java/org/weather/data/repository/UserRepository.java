@@ -1,8 +1,8 @@
-package org.weather.repository;
+package org.weather.data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.weather.entity.User;
+import org.weather.data.entity.User;
 
 import java.util.Optional;
 

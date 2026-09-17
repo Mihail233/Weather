@@ -1,4 +1,4 @@
-package org.weather.handler;
+package org.weather.web.handler;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
