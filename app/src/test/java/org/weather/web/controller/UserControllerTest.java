@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -92,6 +93,6 @@ class UserControllerTest {
         Session session = sessionRepository.save(new Session(user, expiredAt));
 
         Assertions.assertThrows(SessionExpiredException.class, () -> sessionService.deleteExpired(session));
-        Assertions.assertEquals(0, sessionRepository.count());
+        Assertions.assertThrows(ObjectRetrievalFailureException.class, () -> sessionRepository.getReferenceById(session.getId()));
     }
 }
