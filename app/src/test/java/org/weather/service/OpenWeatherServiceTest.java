@@ -80,7 +80,7 @@ class OpenWeatherServiceTest {
 
     @Test
     void InTheEventOf400ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() throws URISyntaxException, IOException, InterruptedException {
-        wireMockServer.stubFor(get(urlMatching("/geo/1.0/direct\\?q=Moscow&limit=5&appid=5aea56b59574fba09c7e3b0213d2abbd"))
+        wireMockServer.stubFor(get(urlMatching(String.format("/geo/1.0/direct\\?q=Moscow&limit=5&appid=%s", APPID)))
                 .willReturn(aResponse()
                         .withStatus(400)));
 
@@ -89,7 +89,7 @@ class OpenWeatherServiceTest {
 
     @Test
     void InTheEventOf500ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() throws URISyntaxException, IOException, InterruptedException {
-        wireMockServer.stubFor(get(urlMatching("/geo/1.0/direct\\?q=Moscow&limit=5&appid=5aea56b59574fba09c7e3b0213d2abbd"))
+        wireMockServer.stubFor(get(urlMatching(String.format("/geo/1.0/direct\\?q=Moscow&limit=5&appid=%s", APPID)))
                 .willReturn(aResponse()
                         .withStatus(500)));
 
