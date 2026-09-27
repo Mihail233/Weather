@@ -1,9 +1,9 @@
 package org.weather.web.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +35,7 @@ public class UserController {
     @PostMapping("/sign-up")
     public String signUp(HttpServletResponse response, @Valid @ModelAttribute SignUpRequest signUpRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             return "sign-up-with-errors";
         }
 
@@ -56,8 +57,9 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public String signIn(HttpServletRequest r, HttpServletResponse response, @Valid @ModelAttribute SignInRequest signInRequest, BindingResult bindingResult) {
+    public String signIn(HttpServletResponse response, @Valid @ModelAttribute SignInRequest signInRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             return "sign-in-with-errors";
         }
 

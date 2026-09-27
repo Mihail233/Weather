@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class AddingLocationRequest {
-    @NotBlank(message = "location name cannot be empty")
-    @Size(min = 1, max = 100, message = "Username must be between 5 and 20 characters long")
+    @NotBlank(message = "Location name cannot be empty")
+    @Size(min = 1, max = 100, message = "Location name must be between 1 and 100 characters long")
     private String name;
 
     @DecimalMin(value = "-90")

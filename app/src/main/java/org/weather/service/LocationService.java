@@ -8,11 +8,15 @@ import org.weather.data.repository.LocationRepository;
 import org.weather.exception.IncorrectLocationException;
 import org.weather.exception.LocationNotFoundException;
 import org.weather.web.dto.AddingLocationRequest;
+import org.weather.web.dto.LocationResponse;
 import org.weather.web.dto.RemovalLocationRequest;
+import org.weather.web.dto.SearchResultRequest;
 import org.weather.web.dto.api.LocationApiResponse;
+import org.weather.web.mapper.LocationMapper;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -22,8 +26,11 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final UserService userService;
 
-    public void findByName(String name) throws URISyntaxException, IOException, InterruptedException {
-        LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(name);
+    private final LocationMapper locationMapper;
+
+    public List<LocationResponse> findAllByName(SearchResultRequest searchResultRequest) throws URISyntaxException, IOException, InterruptedException {
+        LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(searchResultRequest.getLocationName());
+        return locationMapper.toResponseList(locationApiResponses);
     }
 
     public void add(AddingLocationRequest addingLocationRequest, Long userId) {

@@ -5,8 +5,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.weather.data.entity.Session;
 import org.weather.exception.CookieNotFoundException;
 import org.weather.exception.InvalidSessionException;
@@ -27,7 +29,8 @@ public class CookieInterceptor implements HandlerInterceptor {
     private static final String POST = "POST";
 
     private static final Map<String, Set<String>> PRIVATE_ENDPOINTS = Map.of(
-            "/home", Set.of(GET, POST)
+            "/home", Set.of(GET, POST),
+            "/search", Set.of(GET, POST)
     );
 
     private final SessionService sessionService;
@@ -51,6 +54,14 @@ public class CookieInterceptor implements HandlerInterceptor {
             request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
         }
         return true;
+    }
+
+    @Override
+    public void postHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler,
+                           @Nullable ModelAndView modelAndView) {
+        if (isPrivateEndpoint(request)) {
+            modelAndView.addObject("name", request.getAttribute(USER_NAME_ATTRIBUTE));
+        }
     }
 
     private boolean isPrivateEndpoint(HttpServletRequest request) {

@@ -31,16 +31,16 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 @WebAppConfiguration
 class OpenWeatherServiceTest {
 
+    @RegisterExtension
+    static WireMockExtension wireMockServer = WireMockExtension.newInstance()
+            .options(wireMockConfig().dynamicPort())
+            .build();
+
     @Value("${test.openWeather.api.key}")
     private String APPID;
 
     @Autowired
     private OpenWeatherService openWeatherService;
-
-    @RegisterExtension
-    static WireMockExtension wireMockServer = WireMockExtension.newInstance()
-            .options(wireMockConfig().dynamicPort())
-            .build();
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
@@ -72,14 +72,14 @@ class OpenWeatherServiceTest {
         LocationApiResponse[] locationsApiResponse = openWeatherService.requestLocations("Moscow");
 
         List<String> locationNames = new ArrayList<>();
-        for (LocationApiResponse locationApiResponse: locationsApiResponse) {
+        for (LocationApiResponse locationApiResponse : locationsApiResponse) {
             locationNames.add(locationApiResponse.name());
         }
         Assertions.assertTrue(locationNames.contains("Moscow"));
     }
 
     @Test
-    void InTheEventOf400ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() throws URISyntaxException, IOException, InterruptedException {
+    void InTheEventOf400ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() {
         wireMockServer.stubFor(get(urlMatching(String.format("/geo/1.0/direct\\?q=Moscow&limit=5&appid=%s", APPID)))
                 .willReturn(aResponse()
                         .withStatus(400)));
@@ -88,7 +88,7 @@ class OpenWeatherServiceTest {
     }
 
     @Test
-    void InTheEventOf500ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() throws URISyntaxException, IOException, InterruptedException {
+    void InTheEventOf500ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest() {
         wireMockServer.stubFor(get(urlMatching(String.format("/geo/1.0/direct\\?q=Moscow&limit=5&appid=%s", APPID)))
                 .willReturn(aResponse()
                         .withStatus(500)));
