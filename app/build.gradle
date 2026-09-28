@@ -32,14 +32,17 @@ dependencies {
     implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
     implementation 'org.mindrot:jbcrypt:0.4'
 //    implementation "tools.jackson.core:jackson-databind:${jacksonDatabindVersion}"
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 
     implementation "org.flywaydb:flyway-core:${flywayVersion}"
     implementation "org.flywaydb:flyway-database-postgresql:${flywayVersion}"
 
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
+
+
+    implementation("org.mapstruct:mapstruct:$mapstructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     providedCompile "jakarta.servlet:jakarta.servlet-api:${jakartaServletVersion}"

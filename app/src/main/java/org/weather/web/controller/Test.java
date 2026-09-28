@@ -17,6 +17,6 @@ public class Test {
 
     @GetMapping("/test")
     public void getHomePage() throws URISyntaxException, IOException, InterruptedException {
-        weatherService.viewWeather(1L);
+        weatherService.findAll(1L);
     }
 }

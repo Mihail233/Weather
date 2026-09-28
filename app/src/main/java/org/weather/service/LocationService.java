@@ -1,16 +1,19 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
 import org.weather.data.entity.Location;
 import org.weather.data.entity.User;
 import org.weather.data.repository.LocationRepository;
 import org.weather.exception.IncorrectLocationException;
+import org.weather.exception.LocationAdditionException;
 import org.weather.exception.LocationNotFoundException;
-import org.weather.web.dto.AddingLocationRequest;
+import org.weather.exception.LocationRemovalException;
+import org.weather.web.dto.LocationAdditionRequest;
+import org.weather.web.dto.LocationRemovalRequest;
 import org.weather.web.dto.LocationResponse;
-import org.weather.web.dto.RemovalLocationRequest;
-import org.weather.web.dto.SearchResultRequest;
+import org.weather.web.dto.LocationSearchRequest;
 import org.weather.web.dto.api.LocationApiResponse;
 import org.weather.web.mapper.LocationMapper;
 
@@ -19,30 +22,47 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
+import static org.weather.util.ServiceUtil.isPersistenceException;
+
 @Service
 @RequiredArgsConstructor
 public class LocationService {
     private final OpenWeatherService openWeatherService;
-    private final LocationRepository locationRepository;
     private final UserService userService;
+
+    private final LocationRepository locationRepository;
 
     private final LocationMapper locationMapper;
 
-    public List<LocationResponse> findAllByName(SearchResultRequest searchResultRequest) throws URISyntaxException, IOException, InterruptedException {
-        LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(searchResultRequest.getLocationName());
+    public List<LocationResponse> findAllByName(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException {
+        LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(locationSearchRequest.getLocationName());
         return locationMapper.toResponseList(locationApiResponses);
     }
 
-    public void add(AddingLocationRequest addingLocationRequest, Long userId) {
-        User user = userService.findById(userId);
-        Location location = new Location(addingLocationRequest.getName(), user, addingLocationRequest.getLatitude(), addingLocationRequest.getLongitude());
-        locationRepository.save(location);
+    public void addNewLocation(LocationAdditionRequest locationAdditionRequest, Long userId) {
+        try {
+            User user = userService.findById(userId);
+            Location location = new Location(locationAdditionRequest.getName(), user, locationAdditionRequest.getLatitude(), locationAdditionRequest.getLongitude());
+            locationRepository.save(location);
+        } catch (NestedRuntimeException e) {
+            if (isPersistenceException(e)) {
+                throw new LocationAdditionException(e.getMessage(), e);
+            }
+            throw e;
+        }
     }
 
-    public void remove(RemovalLocationRequest removalLocationRequest, User user) {
-        Location location = findById(removalLocationRequest.getLocationId());
-        guardUser(user.getId(), location);
-        locationRepository.delete(location);
+    public void delete(LocationRemovalRequest locationRemovalRequest, Long userId) {
+        try {
+            Location location = findById(locationRemovalRequest.getLocationId());
+            guardUser(userId, location);
+            locationRepository.delete(location);
+        } catch (NestedRuntimeException e) {
+            if (isPersistenceException(e)) {
+                throw new LocationRemovalException(e.getMessage(), e);
+            }
+            throw e;
+        }
     }
 
     private Location findById(Long id) {

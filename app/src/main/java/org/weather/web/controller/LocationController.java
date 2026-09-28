@@ -9,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.weather.service.LocationService;
-import org.weather.web.dto.AddingLocationRequest;
+import org.weather.web.dto.LocationAdditionRequest;
+import org.weather.web.dto.LocationRemovalRequest;
 import org.weather.web.dto.LocationResponse;
-import org.weather.web.dto.SearchResultRequest;
+import org.weather.web.dto.LocationSearchRequest;
+import org.weather.web.interceptor.CookieInterceptor;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -24,29 +27,37 @@ public class LocationController {
     private final LocationService locationService;
 
     @GetMapping("/search")
-    public String getSearchResultsPage(Model model) {
-        model.addAttribute("searchResultRequest", new SearchResultRequest());
+    public String getLocationSearchPage(Model model) {
+        model.addAttribute("locationSearchRequest", new LocationSearchRequest());
         return "search-results";
     }
 
     @PostMapping("/search")
-    public String searchLocations(HttpServletResponse response, @Valid @ModelAttribute SearchResultRequest searchResultRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
-        List<LocationResponse> locationResponses = locationService.findAllByName(searchResultRequest);
-        setStatusIfNoLocations(response, locationResponses);
+    public String searchAllByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
+        List<LocationResponse> locationResponses = locationService.findAllByName(locationSearchRequest);
+        setResponseStatusIfNoLocations(response, locationResponses);
 
         model.addAttribute("locationResponses", locationResponses);
-        model.addAttribute("previousSearch", searchResultRequest.getLocationName());
+        model.addAttribute("previousSearch", locationSearchRequest.getLocationName());
         return "search-results";
     }
 
-    private void setStatusIfNoLocations(HttpServletResponse response, List<LocationResponse> locationResponses) {
+    private void setResponseStatusIfNoLocations(HttpServletResponse response, List<LocationResponse> locationResponses) {
         if (locationResponses.isEmpty()) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
         }
     }
 
     @PostMapping("/addition")
-    public String addLocation(HttpServletResponse response, @Valid @ModelAttribute AddingLocationRequest addingLocationRequest) {
+    public String addNewLocation(HttpServletResponse response, @Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = CookieInterceptor.USER_ID_ATTRIBUTE) Long userId) {
+        locationService.addNewLocation(locationAdditionRequest, userId);
+        response.setStatus(HttpStatus.CREATED.value());
+        return "redirect:/home";
+    }
+
+    @PostMapping("/delete")
+    public String deleteLocation(@RequestAttribute(name = CookieInterceptor.USER_ID_ATTRIBUTE) Long userId, LocationRemovalRequest locationRemovalRequest) {
+        locationService.delete(locationRemovalRequest, userId);
         return "redirect:/home";
     }
 }

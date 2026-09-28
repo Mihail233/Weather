@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RemovalLocationRequest {
+public class LocationRemovalRequest {
 
     private Long locationId;
 }

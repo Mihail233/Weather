@@ -45,4 +45,12 @@ public class CookieUtil {
             throw new InvalidSessionIdException("Session Id not correct");
         }
     }
+
+    public void deleteSessionCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie(USER_SESSION_COOKIE, null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        response.addCookie(cookie);
+    }
 }

@@ -24,13 +24,17 @@ import java.util.Set;
 public class CookieInterceptor implements HandlerInterceptor {
     public static final String USER_ID_ATTRIBUTE = "user_id";
     public static final String USER_NAME_ATTRIBUTE = "user_name";
+    public static final String SESSION_ID_ATTRIBUTE = "session_id";
 
     private static final String GET = "GET";
     private static final String POST = "POST";
 
     private static final Map<String, Set<String>> PRIVATE_ENDPOINTS = Map.of(
-            "/home", Set.of(GET, POST),
-            "/search", Set.of(GET, POST)
+            "/home", Set.of(GET),
+            "/search", Set.of(GET, POST),
+            "/addition", Set.of(POST),
+            "/delete", Set.of(POST),
+            "/sign-out", Set.of(POST)
     );
 
     private final SessionService sessionService;
@@ -45,13 +49,14 @@ public class CookieInterceptor implements HandlerInterceptor {
                     .orElseThrow(() -> new InvalidSessionIdException("Session Id not found"));
             Long sessionId = CookieUtil.parse(userSessionId);
 
-            Session session = sessionService.getById(sessionId)
+            Session session = sessionService.findById(sessionId)
                     .orElseThrow(() -> new InvalidSessionException("Session not found"));
 
             sessionService.deleteExpired(session);
 
             request.setAttribute(USER_ID_ATTRIBUTE, session.getUser().getId());
             request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
+            request.setAttribute(SESSION_ID_ATTRIBUTE, userSessionId);
         }
         return true;
     }
@@ -60,7 +65,8 @@ public class CookieInterceptor implements HandlerInterceptor {
     public void postHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler,
                            @Nullable ModelAndView modelAndView) {
         if (isPrivateEndpoint(request)) {
-            modelAndView.addObject("name", request.getAttribute(USER_NAME_ATTRIBUTE));
+            assert modelAndView != null;
+            modelAndView.addObject(USER_NAME_ATTRIBUTE, request.getAttribute(USER_NAME_ATTRIBUTE));
         }
     }
 

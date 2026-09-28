@@ -36,6 +36,9 @@ public class OpenWeatherService {
     private static final String LAT_KEY = "lat";
     private static final String LON_KEY = "lon";
 
+    private static final String UNITS_KEY = "units";
+    private static final String UNITS = "metric";
+
     private static final String QUERY_PARAMETERS_SEPARATOR = "&";
     private static final String KEY_VALUE_SEPARATOR = "=";
     private static final int STARTED_INDEX = 0;
@@ -48,8 +51,8 @@ public class OpenWeatherService {
     @Value("${openWeather.api.key}")
     private String APPID;
 
-    public LocationApiResponse[] requestLocations(String name) throws URISyntaxException, IOException, InterruptedException {
-        List<String> queryParameters = getQueryParameters(List.of(Q_KEY, LIMIT_KEY, APPID_KEY), List.of(name, LIMIT, APPID));
+    public LocationApiResponse[] requestLocations(String locationName) throws URISyntaxException, IOException, InterruptedException {
+        List<String> queryParameters = getQueryParameters(List.of(Q_KEY, LIMIT_KEY, APPID_KEY), List.of(locationName, LIMIT, APPID));
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + LOCATIONS_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 
@@ -67,7 +70,7 @@ public class OpenWeatherService {
 
     private HttpRequest buildRequest(String URI, List<String> queryParameters) throws URISyntaxException {
         return HttpRequest.newBuilder()
-                .uri(new URI(URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)))
+                .uri(new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)).replace(" ", "+")))
                 .GET()
                 .build();
     }
@@ -105,7 +108,7 @@ public class OpenWeatherService {
     }
 
     public WeatherApiResponse requestWeather(String latitude, String longitude) throws URISyntaxException, IOException, InterruptedException {
-        List<String> queryParameters = getQueryParameters(List.of(LAT_KEY, LON_KEY, APPID_KEY), List.of(latitude, longitude, APPID));
+        List<String> queryParameters = getQueryParameters(List.of(LAT_KEY, LON_KEY, APPID_KEY, UNITS_KEY), List.of(latitude, longitude, APPID, UNITS));
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + WEATHER_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 

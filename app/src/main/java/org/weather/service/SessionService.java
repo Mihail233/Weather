@@ -22,7 +22,7 @@ public class SessionService {
         return sessionRepository.save(new Session(user, expiresAt));
     }
 
-    public Optional<Session> getById(Long id) {
+    public Optional<Session> findById(Long id) {
         return sessionRepository.findSessionById(id);
     }
 
@@ -39,5 +39,9 @@ public class SessionService {
         Instant now = Instant.now();
 
         return expiredAt.getEpochSecond() <= now.getEpochSecond();
+    }
+
+    public void deleteById(Long sessionId) {
+        sessionRepository.deleteById(sessionId);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.weather.exception.PasswordMismatchException;
 import org.weather.exception.UserNotFoundException;
-import org.weather.exception.UserRegistrationException;
+import org.weather.exception.UserSignUpException;
 
 @Component
 public class ExceptionHandler {
@@ -18,7 +18,7 @@ public class ExceptionHandler {
         switch (e) {
             case PasswordMismatchException passwordMismatchException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
-            case UserRegistrationException userRegistrationException ->
+            case UserSignUpException userSignUpException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
             case UserNotFoundException userNotFoundException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.NOT_FOUND);

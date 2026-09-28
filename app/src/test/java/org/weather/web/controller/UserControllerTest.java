@@ -16,7 +16,7 @@ import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
 import org.weather.data.repository.UserRepository;
 import org.weather.exception.SessionExpiredException;
-import org.weather.exception.UserRegistrationException;
+import org.weather.exception.UserSignUpException;
 import org.weather.service.SessionService;
 import org.weather.service.UserService;
 import org.weather.web.dto.SignUpRequest;
@@ -79,7 +79,7 @@ class UserControllerTest {
         SignUpRequest signUpRequest = fillSignUpRequest(new SignUpRequest());
         userService.signUp(signUpRequest);
 
-        Assertions.assertThrows(UserRegistrationException.class, () -> userService.signUp(signUpRequest));
+        Assertions.assertThrows(UserSignUpException.class, () -> userService.signUp(signUpRequest));
         Assertions.assertEquals(1, userRepository.count());
     }
 

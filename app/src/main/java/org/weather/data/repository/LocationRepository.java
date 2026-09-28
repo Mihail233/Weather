@@ -21,6 +21,11 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     String FILTER_BY_LOCATION_ID_JPQL = """
             WHERE l.id = :id
             """;
+
+    String FILTER_BY_USER_ID_JPQL = """
+            WHERE l.user.id = :id
+            """;
+
     String SELECT_LOCATIONS_WITH_USER_JPQL = SELECT_LOCATIONS_JPQL + ADD_USER_JPQL;
 
     String ID_PARAM = "id";
@@ -28,6 +33,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     @Query(value = SELECT_LOCATIONS_WITH_USER_JPQL + FILTER_BY_LOCATION_ID_JPQL)
     Optional<Location> findLocationById(@Param(ID_PARAM) Long id);
 
-    @Query(value = SELECT_LOCATIONS_JPQL + FILTER_BY_LOCATION_ID_JPQL)
-    List<Location> findLocationsById(@Param(ID_PARAM) Long id);
+    @Query(value = SELECT_LOCATIONS_JPQL + FILTER_BY_USER_ID_JPQL)
+    List<Location> findAllByUserId(@Param(ID_PARAM) Long userId);
 }

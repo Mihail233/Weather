@@ -54,41 +54,6 @@ record CoordinateApiResponse(
 ) {
 }
 
-record WeatherConditionResponse(
-        Integer id,
-        String main,
-        String description,
-        String icon
-) {
-}
-
-record MainApiResponse(
-        @JsonProperty("temp")
-        Float temperature,
-
-        @JsonProperty("feels_like")
-        Float feelsLike,
-
-        @JsonProperty("temp_min")
-        Float minTemperature,
-
-        @JsonProperty("temp_max")
-        Float maxTemperature,
-
-        @JsonProperty("pressure")
-        Integer pressure,
-
-        @JsonProperty("humidity")
-        Integer humidity,
-
-        @JsonProperty("sea_level")
-        Integer seaLevel,
-
-        @JsonProperty("grnd_level")
-        Integer groundLevel
-) {
-}
-
 record WindApiResponse(
         Float speed,
         @JsonProperty("deg")
@@ -104,14 +69,5 @@ record RainApiResponse(
 
 record CloudApiResponse(
         Integer all
-) {
-}
-
-record SysApiResponse(
-        Integer type,
-        Integer id,
-        String country,
-        Date sunrise,
-        Date sunset
 ) {
 }

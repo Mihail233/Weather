@@ -20,9 +20,6 @@ public class Session {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
-    //Session session = session.find(Session.class, 1L);
-    //session.setExpiresAt(Instant.now()) - не будет после flush/commit, update - просто проигнорируется;
-    //главный вопрос, нужно ли добавлять время к сессии или создается новая(если добавляется время, то updatable = true, и сеттер нужен)
     @Column(name = "expires_at", nullable = false, updatable = false)
     private Instant expiresAt;
 

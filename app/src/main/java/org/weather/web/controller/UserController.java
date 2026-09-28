@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.weather.service.UserService;
 import org.weather.util.CookieUtil;
 import org.weather.web.dto.SignInRequest;
@@ -17,6 +18,7 @@ import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 import org.weather.web.handler.ExceptionHandler;
+import org.weather.web.interceptor.CookieInterceptor;
 
 import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
 
@@ -72,5 +74,12 @@ public class UserController {
         }
 
         return "redirect:/home";
+    }
+
+    @PostMapping("/sign-out")
+    public String signOut(HttpServletResponse response, @RequestAttribute(name = CookieInterceptor.SESSION_ID_ATTRIBUTE) Long sessionId) {
+        userService.signOut(sessionId);
+        CookieUtil.deleteSessionCookie(response);
+        return "redirect:/sign-in";
     }
 }

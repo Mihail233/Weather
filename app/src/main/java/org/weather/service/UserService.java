@@ -1,6 +1,5 @@
 package org.weather.service;
 
-import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.core.NestedRuntimeException;
@@ -9,16 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.UserRepository;
-import org.weather.exception.PasswordMismatchException;
-import org.weather.exception.UserLoginException;
-import org.weather.exception.UserNotFoundException;
-import org.weather.exception.UserRegistrationException;
+import org.weather.exception.*;
 import org.weather.web.dto.SignInRequest;
 import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 
 import java.time.Instant;
+
+import static org.weather.util.ServiceUtil.isPersistenceException;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +42,7 @@ public class UserService {
             return new SignUpResponse(session.getId().toString(), expiresAt);
         } catch (NestedRuntimeException e) {
             if (isPersistenceException(e)) {
-                throw new UserRegistrationException(e.getMessage(), e);
+                throw new UserSignUpException(e.getMessage(), e);
             }
             throw e;
         }
@@ -52,11 +50,6 @@ public class UserService {
 
     public int getExpiresAtInSeconds(Instant expiresAt) {
         return (int) (expiresAt.getEpochSecond() - Instant.now().getEpochSecond());
-    }
-
-    private boolean isPersistenceException(NestedRuntimeException e) {
-        Throwable cause = e.getCause();
-        return PersistenceException.class.isAssignableFrom(cause.getClass());
     }
 
     private void checkPasswordsMatches(String password, String repeatedPassword) {
@@ -90,7 +83,7 @@ public class UserService {
             return new SignInResponse(session.getId().toString(), expiresAt);
         } catch (NestedRuntimeException e) {
             if (isPersistenceException(e)) {
-                throw new UserLoginException(e.getMessage(), e);
+                throw new UserSignInException(e.getMessage(), e);
             }
             throw e;
         }
@@ -104,5 +97,16 @@ public class UserService {
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with this id"));
+    }
+
+    public void signOut(Long sessionId) {
+        try {
+            sessionService.deleteById(sessionId);
+        } catch (NestedRuntimeException e) {
+            if (isPersistenceException(e)) {
+                throw new UserSignOutException(e.getMessage(), e);
+            }
+            throw e;
+        }
     }
 }
