@@ -16,6 +16,10 @@ public class LocationAdditionRequest {
     @Size(min = 1, max = 100, message = "Location name must be between 1 and 100 characters long")
     private String name;
 
+    @NotBlank(message = "Country name cannot be empty")
+    @Size(min = 1, max = 100, message = "Country name must be between 1 and 100 characters long")
+    private String country;
+
     @DecimalMin(value = "-90", message = "Latitude cannot be less than -90 degrees")
     @DecimalMax(value = "90", message = "Latitude cannot exceed 90 degrees")
     private BigDecimal latitude;

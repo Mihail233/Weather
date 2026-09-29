@@ -12,9 +12,11 @@ import org.weather.exception.UserSignUpException;
 @Component
 public class ExceptionHandler {
     private static final String OBJECT_ERROR_NAME = "another_error";
+    private static final String INTERNAL_SERVER_ERROR = "Internal Server error";
 
     public void handle(HttpServletResponse response, BindingResult bindingResult, Exception e) {
         String message = e.getMessage();
+
         switch (e) {
             case PasswordMismatchException passwordMismatchException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
@@ -23,7 +25,7 @@ public class ExceptionHandler {
             case UserNotFoundException userNotFoundException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.NOT_FOUND);
             default ->
-                    addErrorAndSetStatus(response, bindingResult, "Internal Server error", HttpStatus.INTERNAL_SERVER_ERROR);
+                    addErrorAndSetStatus(response, bindingResult, INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

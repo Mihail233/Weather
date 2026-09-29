@@ -10,14 +10,18 @@ import java.util.Optional;
 
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
-    String SELECT_SESSION_WITH_USER_JPQL = """
+    String SELECT_ALL_WITH_USERS_JPQL = """
             SELECT s
             FROM Session s
             LEFT JOIN FETCH s.user
+            """;
+
+    String FILTER_BY_SESSION_ID_JPQL = """
             WHERE s.id = :id
             """;
+
     String ID_PARAM = "id";
 
-    @Query(value = SELECT_SESSION_WITH_USER_JPQL)
+    @Query(value = SELECT_ALL_WITH_USERS_JPQL + FILTER_BY_SESSION_ID_JPQL)
     Optional<Session> findSessionById(@Param(ID_PARAM) Long id);
 }

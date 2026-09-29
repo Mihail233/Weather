@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.weather.common.service.OpenWeatherService;
 import org.weather.exception.LocationClientException;
 import org.weather.exception.OpenWeatherServerException;
 import org.weather.exception.WeatherClientException;
@@ -22,8 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OpenWeatherService {
-
+public class OpenWeatherServiceImpl implements OpenWeatherService {
     private static final String LOCATIONS_PATH = "/geo/1.0/direct?";
     private static final String WEATHER_PATH = "/data/2.5/weather?";
 
@@ -41,6 +41,9 @@ public class OpenWeatherService {
 
     private static final String QUERY_PARAMETERS_SEPARATOR = "&";
     private static final String KEY_VALUE_SEPARATOR = "=";
+    private static final String SPACE_IN_URI = " ";
+    private static final String PLUS_IN_URI = "+";
+
     private static final int STARTED_INDEX = 0;
 
     private final JsonMapper jsonMapper = new JsonMapper();
@@ -70,9 +73,14 @@ public class OpenWeatherService {
 
     private HttpRequest buildRequest(String URI, List<String> queryParameters) throws URISyntaxException {
         return HttpRequest.newBuilder()
-                .uri(new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)).replace(" ", "+")))
+                .uri(buildURIWithQueryParameters(URI, queryParameters))
                 .GET()
                 .build();
+    }
+
+    private URI buildURIWithQueryParameters(String URI, List<String> queryParameters) throws URISyntaxException {
+        return new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters))
+                .replace(SPACE_IN_URI, PLUS_IN_URI));
     }
 
     private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {

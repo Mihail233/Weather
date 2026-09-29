@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.weather.service.WeatherService;
+import org.weather.common.service.WeatherService;
 import org.weather.web.dto.WeatherResponse;
-import org.weather.web.interceptor.CookieInterceptor;
+import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,9 +18,9 @@ import java.util.List;
 public class WeatherController {
     private final WeatherService weatherService;
 
-    @GetMapping("/home")
-    public String getWeatherPage(@RequestAttribute(name = CookieInterceptor.USER_ID_ATTRIBUTE) Long userId, Model model) throws URISyntaxException, IOException, InterruptedException {
-        List<WeatherResponse> weatherResponses = weatherService.findAll(userId);
+    @GetMapping("/weather")
+    public String getWeatherPage(@RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, Model model) throws URISyntaxException, IOException, InterruptedException {
+        List<WeatherResponse> weatherResponses = weatherService.showWeather(userId);
         model.addAttribute("weatherResponses", weatherResponses);
         return "index";
     }

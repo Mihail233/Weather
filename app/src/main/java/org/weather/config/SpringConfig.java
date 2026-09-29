@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
-import org.weather.web.interceptor.CookieInterceptor;
+import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -71,7 +71,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addWebRequestInterceptor(openEntityManagerInViewInterceptor());
 
-        CookieInterceptor cookieInterceptor = applicationContext.getBean(CookieInterceptor.class);
-        registry.addInterceptor(cookieInterceptor);
+        PrivateEndpointInterceptor privateEndpointInterceptor = applicationContext.getBean(PrivateEndpointInterceptor.class);
+        registry.addInterceptor(privateEndpointInterceptor);
     }
 }

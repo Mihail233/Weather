@@ -2,6 +2,7 @@ package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.weather.common.service.SessionService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
@@ -13,8 +14,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class SessionService {
+public class SessionServiceImpl implements SessionService {
     private static final int SESSION_TTL = 1;
+
     private final SessionRepository sessionRepository;
 
     public Session createAndSave(User user) {
@@ -29,8 +31,7 @@ public class SessionService {
     public void deleteExpired(Session session) {
         if (checkExpiration(session)) {
             sessionRepository.delete(session);
-            //не особо нравится что здесь кидается ошибка
-            throw new SessionExpiredException("Session expired");
+            throw new SessionExpiredException("Session expired, please sign in");
         }
     }
 

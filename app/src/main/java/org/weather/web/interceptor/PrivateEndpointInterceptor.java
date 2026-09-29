@@ -9,11 +9,11 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.weather.common.service.SessionService;
 import org.weather.data.entity.Session;
 import org.weather.exception.CookieNotFoundException;
 import org.weather.exception.InvalidSessionException;
 import org.weather.exception.InvalidSessionIdException;
-import org.weather.service.SessionService;
 import org.weather.util.CookieUtil;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class CookieInterceptor implements HandlerInterceptor {
+public class PrivateEndpointInterceptor implements HandlerInterceptor {
     public static final String USER_ID_ATTRIBUTE = "user_id";
     public static final String USER_NAME_ATTRIBUTE = "user_name";
     public static final String SESSION_ID_ATTRIBUTE = "session_id";
@@ -30,10 +30,10 @@ public class CookieInterceptor implements HandlerInterceptor {
     private static final String POST = "POST";
 
     private static final Map<String, Set<String>> PRIVATE_ENDPOINTS = Map.of(
-            "/home", Set.of(GET),
-            "/search", Set.of(GET, POST),
-            "/addition", Set.of(POST),
-            "/delete", Set.of(POST),
+            "/weather", Set.of(GET),
+            "/location/search", Set.of(GET, POST),
+            "/location/add", Set.of(POST),
+            "/location/delete", Set.of(POST),
             "/sign-out", Set.of(POST)
     );
 
@@ -43,14 +43,14 @@ public class CookieInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (isPrivateEndpoint(request)) {
             Cookie[] cookies = CookieUtil.getCookies(request)
-                    .orElseThrow(() -> new CookieNotFoundException("Cookie not found"));
+                    .orElseThrow(() -> new CookieNotFoundException("Cookies were not found, please sign in"));
 
             String userSessionId = CookieUtil.getUserSessionIdFrom(cookies)
-                    .orElseThrow(() -> new InvalidSessionIdException("Session Id not found"));
+                    .orElseThrow(() -> new InvalidSessionIdException("Invalid session ID, please sign in"));
             Long sessionId = CookieUtil.parse(userSessionId);
 
             Session session = sessionService.findById(sessionId)
-                    .orElseThrow(() -> new InvalidSessionException("Session not found"));
+                    .orElseThrow(() -> new InvalidSessionException("Session not found, please sign in"));
 
             sessionService.deleteExpired(session);
 

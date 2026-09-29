@@ -10,6 +10,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.weather.common.service.SessionService;
+import org.weather.common.service.UserService;
 import org.weather.config.DatabaseTestConfig;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
@@ -17,8 +19,6 @@ import org.weather.data.repository.SessionRepository;
 import org.weather.data.repository.UserRepository;
 import org.weather.exception.SessionExpiredException;
 import org.weather.exception.UserSignUpException;
-import org.weather.service.SessionService;
-import org.weather.service.UserService;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 

@@ -40,7 +40,7 @@ class OpenWeatherServiceTest {
     private String APPID;
 
     @Autowired
-    private OpenWeatherService openWeatherService;
+    private OpenWeatherServiceImpl openWeatherService;
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {

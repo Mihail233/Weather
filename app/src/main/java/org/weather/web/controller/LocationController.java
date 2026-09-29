@@ -6,16 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.weather.service.LocationService;
+import org.springframework.web.bind.annotation.*;
+import org.weather.common.service.LocationService;
 import org.weather.web.dto.LocationAdditionRequest;
 import org.weather.web.dto.LocationRemovalRequest;
 import org.weather.web.dto.LocationResponse;
 import org.weather.web.dto.LocationSearchRequest;
-import org.weather.web.interceptor.CookieInterceptor;
+import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,6 +20,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/location")
 public class LocationController {
     private final LocationService locationService;
 
@@ -33,8 +31,8 @@ public class LocationController {
     }
 
     @PostMapping("/search")
-    public String searchAllByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
-        List<LocationResponse> locationResponses = locationService.findAllByName(locationSearchRequest);
+    public String searchLocationsByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
+        List<LocationResponse> locationResponses = locationService.showLocations(locationSearchRequest);
         setResponseStatusIfNoLocations(response, locationResponses);
 
         model.addAttribute("locationResponses", locationResponses);
@@ -48,16 +46,17 @@ public class LocationController {
         }
     }
 
-    @PostMapping("/addition")
-    public String addNewLocation(HttpServletResponse response, @Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = CookieInterceptor.USER_ID_ATTRIBUTE) Long userId) {
+    @PostMapping("/add")
+    public String addNewLocation(HttpServletResponse response, @Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId) {
         locationService.addNewLocation(locationAdditionRequest, userId);
         response.setStatus(HttpStatus.CREATED.value());
-        return "redirect:/home";
+        return "redirect:/weather";
     }
 
     @PostMapping("/delete")
-    public String deleteLocation(@RequestAttribute(name = CookieInterceptor.USER_ID_ATTRIBUTE) Long userId, LocationRemovalRequest locationRemovalRequest) {
-        locationService.delete(locationRemovalRequest, userId);
-        return "redirect:/home";
+    public String deleteLocation(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, LocationRemovalRequest locationRemovalRequest) {
+        locationService.deleteLocation(locationRemovalRequest, userId);
+        response.setStatus(HttpStatus.NO_CONTENT.value());
+        return "redirect:/weather";
     }
 }

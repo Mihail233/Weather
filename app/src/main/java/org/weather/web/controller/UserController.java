@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.weather.service.UserService;
+import org.weather.common.service.UserService;
 import org.weather.util.CookieUtil;
 import org.weather.web.dto.SignInRequest;
 import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 import org.weather.web.handler.ExceptionHandler;
-import org.weather.web.interceptor.CookieInterceptor;
+import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
 import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
 
@@ -49,7 +49,8 @@ public class UserController {
             return "sign-up-with-errors";
         }
 
-        return "redirect:/home";
+        response.setStatus(HttpStatus.CREATED.value());
+        return "redirect:/weather";
     }
 
     @GetMapping("/sign-in")
@@ -73,13 +74,15 @@ public class UserController {
             return "sign-in-with-errors";
         }
 
-        return "redirect:/home";
+        return "redirect:/weather";
     }
 
     @PostMapping("/sign-out")
-    public String signOut(HttpServletResponse response, @RequestAttribute(name = CookieInterceptor.SESSION_ID_ATTRIBUTE) Long sessionId) {
+    public String signOut(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.SESSION_ID_ATTRIBUTE) Long sessionId) {
         userService.signOut(sessionId);
         CookieUtil.deleteSessionCookie(response);
+
+        response.setStatus(HttpStatus.NO_CONTENT.value());
         return "redirect:/sign-in";
     }
 }

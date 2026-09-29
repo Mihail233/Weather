@@ -1,14 +1,19 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.weather.common.service.SessionService;
+import org.weather.common.service.UserService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.UserRepository;
-import org.weather.exception.*;
+import org.weather.exception.PasswordMismatchException;
+import org.weather.exception.UserNotFoundException;
+import org.weather.exception.UserSignUpException;
 import org.weather.web.dto.SignInRequest;
 import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
@@ -16,11 +21,9 @@ import org.weather.web.dto.SignUpResponse;
 
 import java.time.Instant;
 
-import static org.weather.util.ServiceUtil.isPersistenceException;
-
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
     private static final int LOG_ROUNDS = 12;
 
     private final SessionService sessionService;
@@ -38,14 +41,18 @@ public class UserService {
 
             Session session = sessionService.createAndSave(user);
             int expiresAt = getExpiresAtInSeconds(session.getExpiresAt());
-
             return new SignUpResponse(session.getId().toString(), expiresAt);
         } catch (NestedRuntimeException e) {
-            if (isPersistenceException(e)) {
-                throw new UserSignUpException(e.getMessage(), e);
+            if (isConstraintViolationException(e)) {
+                throw new UserSignUpException("Failed to sign up the user, a user with this name is already registered", e);
             }
             throw e;
         }
+    }
+
+    private static boolean isConstraintViolationException(NestedRuntimeException e) {
+        Throwable cause = e.getCause();
+        return ConstraintViolationException.class.isAssignableFrom(cause.getClass());
     }
 
     public int getExpiresAtInSeconds(Instant expiresAt) {
@@ -54,7 +61,7 @@ public class UserService {
 
     private void checkPasswordsMatches(String password, String repeatedPassword) {
         if (!password.equals(repeatedPassword)) {
-            throw new PasswordMismatchException("Password does not match");
+            throw new PasswordMismatchException("The entered passwords do not match");
         }
     }
 
@@ -62,31 +69,17 @@ public class UserService {
         return BCrypt.hashpw(password, BCrypt.gensalt(LOG_ROUNDS));
     }
 
-    private void checkPasswordMatchesTheHash(String password, String hash) {
-        if (!BCrypt.checkpw(password, hash)) {
-            throw new PasswordMismatchException("Password does not match");
-        }
-    }
-
     @Transactional
     public SignInResponse signIn(SignInRequest signInRequest) {
         String login = signInRequest.getUsername();
         String password = signInRequest.getPassword();
+        User user = findByLogin(login);
+        checkPasswordMatchesTheHash(password, user.getPassword());
 
-        try {
-            User user = findByLogin(login);
-            checkPasswordMatchesTheHash(password, user.getPassword());
+        Session session = sessionService.createAndSave(user);
+        int expiresAt = getExpiresAtInSeconds(session.getExpiresAt());
 
-            Session session = sessionService.createAndSave(user);
-            int expiresAt = getExpiresAtInSeconds(session.getExpiresAt());
-
-            return new SignInResponse(session.getId().toString(), expiresAt);
-        } catch (NestedRuntimeException e) {
-            if (isPersistenceException(e)) {
-                throw new UserSignInException(e.getMessage(), e);
-            }
-            throw e;
-        }
+        return new SignInResponse(session.getId().toString(), expiresAt);
     }
 
     private User findByLogin(String login) {
@@ -94,19 +87,18 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with name: " + login));
     }
 
-    public User findById(Long id) {
+    private void checkPasswordMatchesTheHash(String password, String hash) {
+        if (!BCrypt.checkpw(password, hash)) {
+            throw new PasswordMismatchException("Incorrect password");
+        }
+    }
+
+    public User findUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with this id"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     public void signOut(Long sessionId) {
-        try {
-            sessionService.deleteById(sessionId);
-        } catch (NestedRuntimeException e) {
-            if (isPersistenceException(e)) {
-                throw new UserSignOutException(e.getMessage(), e);
-            }
-            throw e;
-        }
+        sessionService.deleteById(sessionId);
     }
 }

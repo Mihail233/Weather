@@ -30,12 +30,14 @@ public class WeatherMapper {
         int index = 0;
         WeatherResponse weatherResponse = new WeatherResponse(
                 location.getId(),
-                String.format("%s %s", weatherApiResponse.name(), weatherApiResponse.sysApiResponse().country()),
+                location.getName(),
                 weatherApiResponse.weatherConditionsResponse()[index].icon(),
                 weatherApiResponse.mainApiResponse().temperature(),
                 weatherApiResponse.mainApiResponse().feelsLike(),
                 weatherApiResponse.weatherConditionsResponse()[index].icon(),
-                weatherApiResponse.mainApiResponse().humidity()
+                weatherApiResponse.mainApiResponse().humidity(),
+                location.getLatitude().stripTrailingZeros(),
+                location.getLongitude().stripTrailingZeros()
         );
 
         return weatherResponse;
