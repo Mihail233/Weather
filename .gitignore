@@ -3,7 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
-
+app/src/main/resources/.env
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
