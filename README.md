@@ -26,7 +26,7 @@
 | Веб-слой | Spring Web MVC 7.0.7, Jakarta Servlet API 6.1 |
 | HTML | Thymeleaf 3.1.5.RELEASE (`thymeleaf-spring6`), Bootstrap 5.3.0 |
 | Доступ к данным | Spring Data JPA 4.0.5, Hibernate ORM 7.4.0.Final |
-| База данных | PostgreSQL, JDBC-драйвер 42.7.11 |
+| База данных | PostgreSQL в Docker, JDBC-драйвер 42.7.11 |
 | Миграции | Flyway 12.10.0 |
 | Валидация | Jakarta Validation, Hibernate Validator 9.1.3.Final |
 | Вспомогательные библиотеки | Lombok, MapStruct, Jackson, jBCrypt |
@@ -40,22 +40,49 @@
 Потребуются:
 
 - JDK 25 для сборки и запуска Tomcat.
-- PostgreSQL и отдельная база для приложения.
+- Docker Desktop или Docker Engine для запуска PostgreSQL; устанавливать сервер PostgreSQL на компьютер отдельно не требуется.
 - Apache Tomcat 11.x: он поддерживает используемый проектом Servlet API 6.1. См. [таблицу совместимости Tomcat](https://tomcat.apache.org/whichversion.html).
 - Собственный API-ключ OpenWeather с доступом к [Geocoding API](https://openweathermap.org/api/geocoding-api) и [Current Weather Data](https://openweathermap.org/api/current).
 - Доступ в интернет для загрузки зависимостей и запросов погоды. Bootstrap и погодные иконки также загружаются из внешних источников.
 
 Отдельно устанавливать Gradle не требуется: используйте `gradlew` из корня проекта. Для Windows заменяйте `./gradlew` на `gradlew.bat`.
 
-### 2. Создать базу данных
+### 2. Запустить PostgreSQL в Docker
 
-Например, при установленном клиенте PostgreSQL:
+При локальной разработке PostgreSQL запускалась в Docker-контейнере, а само приложение — в Tomcat через IntelliJ IDEA. `.env` для этого не нужен: параметры контейнера передаются непосредственно в команде запуска.
+
+Запустите Docker Desktop или Docker Engine. Ниже — пример создания нового локального окружения с образом `postgres:17`. Перед выполнением замените `YOUR_DATABASE_PASSWORD` своим паролем; этот же пароль потребуется в настройках приложения.
 
 ```bash
-createdb -U postgres weather
+docker run -d \
+  --name weather-postgres \
+  -p 127.0.0.1:5432:5432 \
+  -e POSTGRES_DB=weather \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD='YOUR_DATABASE_PASSWORD' \
+  -v weather-postgres-data:/var/lib/postgresql/data \
+  postgres:17
 ```
 
-Если используется другой пользователь PostgreSQL, укажите его вместо `postgres`. Ему необходимы права подключения к базе и создания таблиц в выбранной схеме.
+Команда приведена для Bash/Zsh. База `weather` создаётся автоматически при первой инициализации. Именованный том `weather-postgres-data` хранит данные между запусками контейнера; путь тома в примере рассчитан на PostgreSQL 17. Порт опубликован только на локальном интерфейсе компьютера.
+
+Проверьте готовность базы:
+
+```bash
+docker exec weather-postgres pg_isready -U postgres -d weather
+```
+
+Дождитесь ответа `accepting connections`. При проблемах посмотрите журнал:
+
+```bash
+docker logs weather-postgres
+```
+
+Если контейнер уже создан, для повторного запуска используйте `docker start weather-postgres`, а для остановки — `docker stop weather-postgres`. Повторно выполнять `docker run` с тем же именем не нужно. Не удаляйте том с данными, если хотите сохранить пользователей и локации.
+
+Если порт 5432 занят, в примере можно использовать `127.0.0.1:5433:5432`; тогда укажите порт 5433 в JDBC URL приложения. Так как Tomcat работает вне Docker, подключение идёт через `localhost` и опубликованный порт, а не через имя контейнера.
+
+Переменные `POSTGRES_DB`, `POSTGRES_USER` и `POSTGRES_PASSWORD` применяются при инициализации пустого каталога данных. Их изменение не перенастраивает уже существующую базу. Подробнее: [официальный Docker-образ PostgreSQL](https://hub.docker.com/_/postgres).
 
 Используйте новую отдельную базу: при запуске Flyway применяет миграции. Не направляйте приложение на базу с посторонними таблицами.
 
@@ -80,7 +107,7 @@ openWeather.api.key=YOUR_OPENWEATHER_API_KEY
 openWeather.api.base-url=https://api.openweathermap.org
 ```
 
-Замените значения-заглушки своими. В текущем файле проекта URL базы указывает на `postgres`; пример выше использует отдельную базу `weather`.
+Замените значения-заглушки своими. Имя базы, пользователь и пароль должны совпадать с настройками контейнера из предыдущего шага; JDBC URL должен содержать опубликованный на компьютере порт. Пример выше использует базу `weather` и порт 5432.
 
 Не публикуйте реальные пароли и API-ключи. Файл `application.properties` попадает в WAR, поэтому архив также содержит указанные в нём настройки. `.env` автоматически не загружается: отдельного загрузчика этого файла в приложении нет.
 
@@ -132,7 +159,7 @@ app/build/libs/app-1.0-SNAPSHOT.war
 4. На вкладке **Server** выберите JRE/JDK 25. Если используете параметры прямо из `application.properties`, дополнительные переменные не нужны. Для необязательного варианта выше откройте **Startup/Connection**, выберите режим **Run** или **Debug**, включите **Pass environment variables** и добавьте имена и значения из таблицы.
 5. На вкладке **Deployment** добавьте собранный на предыдущем шаге `app/build/libs/app-1.0-SNAPSHOT.war` как **External Source**. Установите **Application context** в `/`, чтобы адреса не содержали имени WAR.
 6. Настройте HTTPS для используемого экземпляра Tomcat. В поле стартового URL укажите `/sign-in` на его HTTPS-адресе, например `https://localhost:8443/sign-in`, если выбран порт 8443.
-7. Убедитесь, что PostgreSQL запущен, сохраните конфигурацию и нажмите **Run**. Проверьте успешное выполнение миграций в консоли Tomcat.
+7. Убедитесь, что контейнер PostgreSQL запущен и база принимает подключения, сохраните конфигурацию и нажмите **Run**. Проверьте успешное выполнение миграций в консоли Tomcat.
 
 В таком варианте регистрация доступна по `/sign-up`, а погодные карточки — по `/weather`, без дополнительного префикса. После изменения кода или `application.properties` снова выполните `./gradlew :app:war` и обновите развёртывание. Чтобы IDE собирала WAR перед каждым запуском, можно добавить Gradle-задачу `:app:war` в **Before launch**.
 
