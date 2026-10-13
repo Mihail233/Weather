@@ -51,7 +51,6 @@ public class UserController {
             return "sign-up-with-errors";
         }
 
-        response.setStatus(HttpStatus.CREATED.value());
         return "redirect:/weather";
     }
 
@@ -84,7 +83,6 @@ public class UserController {
         userService.signOut(sessionId);
         CookieUtil.deleteSessionCookie(response);
 
-        response.setStatus(HttpStatus.NO_CONTENT.value());
         return "redirect:/sign-in";
     }
 }

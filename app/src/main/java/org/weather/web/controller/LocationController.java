@@ -49,14 +49,12 @@ public class LocationController {
     @PostMapping("/add")
     public String addNewLocation(HttpServletResponse response, @Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId) {
         locationService.addNewLocation(locationAdditionRequest, userId);
-        response.setStatus(HttpStatus.CREATED.value());
         return "redirect:/weather";
     }
 
     @PostMapping("/delete")
-    public String deleteLocation(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, LocationRemovalRequest locationRemovalRequest) {
+    public String deleteLocation(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, @Valid LocationRemovalRequest locationRemovalRequest) {
         locationService.deleteLocation(locationRemovalRequest, userId);
-        response.setStatus(HttpStatus.NO_CONTENT.value());
         return "redirect:/weather";
     }
 }

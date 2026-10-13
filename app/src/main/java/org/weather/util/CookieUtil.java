@@ -4,7 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
-import org.weather.exception.InvalidSessionIdException;
+import org.weather.exception.UnauthenticatedException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -50,7 +50,7 @@ public class CookieUtil {
         try {
             return UUID.fromString(sessionId);
         } catch (NumberFormatException e) {
-            throw new InvalidSessionIdException("Session Id not correct");
+            throw new UnauthenticatedException("Failed to authentication the user, please sign in");
         }
     }
 

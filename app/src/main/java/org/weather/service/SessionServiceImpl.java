@@ -6,7 +6,7 @@ import org.weather.common.service.SessionService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
-import org.weather.exception.SessionExpiredException;
+import org.weather.exception.UnauthenticatedException;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -32,7 +32,7 @@ public class SessionServiceImpl implements SessionService {
     public void deleteExpired(Session session) {
         if (checkExpiration(session)) {
             sessionRepository.delete(session);
-            throw new SessionExpiredException("Session expired, please sign in");
+            throw new UnauthenticatedException("Failed to authentication the user, please sign in");
         }
     }
 

@@ -17,7 +17,6 @@ import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
 import org.weather.data.repository.UserRepository;
-import org.weather.exception.SessionExpiredException;
 import org.weather.exception.UserSignUpException;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;

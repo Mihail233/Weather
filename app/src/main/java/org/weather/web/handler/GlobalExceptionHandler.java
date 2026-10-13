@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.weather.exception.*;
 
 import java.util.ArrayList;
@@ -22,23 +23,16 @@ public class GlobalExceptionHandler {
     private static final String delimiter = ". ";
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler({CookieNotFoundException.class})
-    public String handleCookieNotFoundExceptionException(CookieNotFoundException e, Model model) {
+    @ExceptionHandler({UnauthenticatedException.class})
+    public String handleUnauthenticatedException(UnauthenticatedException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "error";
     }
 
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler({InvalidSessionIdException.class})
-    public String handleInvalidSessionIdException(InvalidSessionIdException e, Model model) {
-        model.addAttribute("message", e.getMessage());
-        return "error";
-    }
-
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler({SessionExpiredException.class})
-    public String handleSessionExpiredException(SessionExpiredException e, Model model) {
-        model.addAttribute("message", e.getMessage());
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({NoHandlerFoundException.class})
+    public String handleNoHandlerFoundException(NoHandlerFoundException e, Model model) {
+        model.addAttribute("message", "Page not found");
         return "error";
     }
 
@@ -49,6 +43,20 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(LocationNotFoundException.class)
+    public String handleLocationNotFoundException(LocationNotFoundException e, Model model) {
+        model.addAttribute("message", e.getMessage());
+        return "error";
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessLocationException.class)
+    public String handleAccessLocationException(AccessLocationException e, Model model) {
+        model.addAttribute("message", e.getMessage());
+        return "error";
+    }
+
     private String getAllMessages(BindingResult bindingResult) {
         List<String> messages = new ArrayList<>();
         for (ObjectError objectError : bindingResult.getAllErrors()) {
@@ -56,7 +64,6 @@ public class GlobalExceptionHandler {
         }
         return String.join(delimiter, messages);
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(LocationClientException.class)

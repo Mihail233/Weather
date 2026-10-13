@@ -8,7 +8,7 @@ import org.weather.common.service.UserService;
 import org.weather.data.entity.Location;
 import org.weather.data.entity.User;
 import org.weather.data.repository.LocationRepository;
-import org.weather.exception.IncorrectLocationException;
+import org.weather.exception.AccessLocationException;
 import org.weather.exception.LocationNotFoundException;
 import org.weather.web.dto.LocationAdditionRequest;
 import org.weather.web.dto.LocationRemovalRequest;
@@ -58,7 +58,7 @@ public class LocationServiceImpl implements LocationService {
 
     private void guardUser(Long userId, Location location) {
         if (!Objects.equals(location.getUser().getId(), userId)) {
-            throw new IncorrectLocationException("Access to the location is prohibited");
+            throw new AccessLocationException("Access to the location is prohibited");
         }
     }
 }
