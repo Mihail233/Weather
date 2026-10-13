@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "Sessions")
+@Getter
+@NoArgsConstructor
 public class Session {
 
     @Id
