@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="439825c7-0c03-4022-b714-1eb8fe305bb0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/diff-generator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpb-settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/FlywayRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/db/V1__init_tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/TestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,56 +93,56 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build Weather.executor": "Run",
-    "Gradle.Build app.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.app [dependencies].executor": "Run",
-    "Gradle.app [prepareKotlinBuildScriptModel].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileJava].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileTestJava].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.example.App.main()].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.weather.Main.main()].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [buildDependents].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [buildNeeded].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [build].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [classes].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [clean].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileJava].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileTestJava].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [run].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [testClasses].executor": "Run",
-    "Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war].executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.Weather [clean].executor": "Run",
-    "Maven.Weather [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
-    "Maven.Weather [org.apache.maven.plugins:maven-jar-plugin:3.4.1:jar].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Tomcat Server.Tomcat 11.0.18.executor": "Debug",
-    "git-widget-placeholder": "Rebasing main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mihailskulkin/Desktop/dadaYa/Weather/src/main",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build Weather.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build app.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app [prepareKotlinBuildScriptModel].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileTestJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.example.App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.weather.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [buildDependents].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [buildNeeded].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileTestJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [testClasses].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war].executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Weather [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Weather [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Weather [org.apache.maven.plugins:maven-jar-plugin:3.4.1:jar].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 11.0.18.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Rebasing main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mihailskulkin/Desktop/dadaYa/Weather/src/main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main" />
@@ -145,19 +154,6 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean" />
-    </option>
-  </component>
-  <component name="RunDashboard">
-    <option name="configurationStatuses">
-      <map>
-        <entry key="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
-          <value>
-            <map>
-              <entry key="Tomcat 11.0.18" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
-      </map>
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 11.0.18">
