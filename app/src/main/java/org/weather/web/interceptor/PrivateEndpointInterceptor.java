@@ -52,8 +52,6 @@ public class PrivateEndpointInterceptor implements HandlerInterceptor {
             Session session = sessionService.findById(sessionId)
                     .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
 
-            sessionService.deleteExpired(session);
-
             request.setAttribute(USER_ID_ATTRIBUTE, session.getUser().getId());
             request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
             request.setAttribute(SESSION_ID_ATTRIBUTE, sessionId);

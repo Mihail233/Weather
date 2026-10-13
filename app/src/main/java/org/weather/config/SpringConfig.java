@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -20,10 +22,11 @@ import java.time.Duration;
 @Configuration
 @EnableWebMvc
 @ComponentScan("org.weather")
+@EnableScheduling
+@EnableTransactionManagement
 @EnableJpaRepositories("org.weather.data.repository")
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
-
     @Autowired
     public SpringConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;

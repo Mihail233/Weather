@@ -11,7 +11,7 @@ public interface SessionService {
 
     Optional<Session> findById(UUID id);
 
-    void deleteExpired(Session session);
+    void deleteExpired();
 
     void deleteById(UUID sessionId);
 }

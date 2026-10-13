@@ -1,12 +1,15 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.weather.common.service.SessionService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
-import org.weather.exception.UnauthenticatedException;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -15,13 +18,15 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class SessionServiceImpl implements SessionService {
-    private static final int SESSION_TTL = 1;
+    private static final int SESSION_TTL_HOURS = 1;
+    private static final int SCHEDULER_DELAY_MILLISECONDS = 60000;
 
     private final SessionRepository sessionRepository;
 
     public Session createAndSave(User user) {
-        Instant expiresAt = Instant.now().plus(SESSION_TTL, ChronoUnit.HOURS);
+        Instant expiresAt = Instant.now().plus(SESSION_TTL_HOURS, ChronoUnit.SECONDS);
         return sessionRepository.save(new Session(user, expiresAt));
     }
 
@@ -29,18 +34,11 @@ public class SessionServiceImpl implements SessionService {
         return sessionRepository.findSessionById(id);
     }
 
-    public void deleteExpired(Session session) {
-        if (checkExpiration(session)) {
-            sessionRepository.delete(session);
-            throw new UnauthenticatedException("Failed to authentication the user, please sign in");
-        }
-    }
-
-    private boolean checkExpiration(Session session) {
-        Instant expiredAt = session.getExpiresAt();
-        Instant now = Instant.now();
-
-        return expiredAt.getEpochSecond() <= now.getEpochSecond();
+    @Async
+    @Scheduled(fixedDelay = SCHEDULER_DELAY_MILLISECONDS)
+    @Transactional
+    public void deleteExpired() {
+        sessionRepository.deleteExpiredSession(Instant.now());
     }
 
     public void deleteById(UUID sessionId) {
