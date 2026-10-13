@@ -5,11 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="439825c7-0c03-4022-b714-1eb8fe305bb0" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/util/CookieUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/util/CookieUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/diff-generator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/diff-generator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpb-settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpb-settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/common/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/common/service/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/common/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/common/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/util/CookieUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/util/CookieUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/PrivateEndpointInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/PrivateEndpointInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/db/V1__init_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/db/V1__init_tables.sql" afterDir="false" />
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,12 +83,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
+        <option value="com.intellij.jpb.FlywayMigrationScript" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.flywaydb/flyway-core/12.10.0/8a9be151382aa2a89a0f33eac0bfffc0631c4067/flyway-core-12.10.0-sources.jar!/org/flywaydb/core/Flyway.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -80,6 +107,9 @@
     <option name="FILTER_INFO" value="true" />
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -95,13 +125,41 @@
     &quot;Gradle.Build Weather.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build app.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+<<<<<<< HEAD
     &quot;Gradle.app [dependencies].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app [prepareKotlinBuildScriptModel].executor&quot;: &quot;Run&quot;,
+=======
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.InTheEventOf400ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.InTheEventOf500ErrorOpenWeatherThrowsTheExpectedExceptionTypeTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.responseFromOpenWeatherContainsExpectedLocationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.signUpUserAndSessionAssociationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.verificationCorrectlyReturnedLocationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.OpenWeatherServiceTest.verifyingThe400ErrorWhenSendingInvalidRequestToOpenWeatherTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.checkSessionExpirationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.sessionServiceCheckSessionExpirationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.signIn.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.signUp.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.signUpTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.signUpUserAlreadyRegistered.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.signUpUserAndSessionAssociationTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.userRegistrationWithNonUniqueUsernameTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UserControllerTest.verificationOfLinkBetweenSessionAndUserTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.app [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app [prepareKotlinBuildScriptModel].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app.executor&quot;: &quot;Debug&quot;,
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileJava].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:compileTestJava].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.example.App.main()].executor&quot;: &quot;Run&quot;,
+<<<<<<< HEAD
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.weather.Main.main()].executor&quot;: &quot;Run&quot;,
+=======
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:org.weather.Main.main()].executor&quot;: &quot;Debug&quot;,
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [buildDependents].executor&quot;: &quot;Run&quot;,
@@ -114,7 +172,14 @@
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [run].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [testClasses].executor&quot;: &quot;Run&quot;,
+<<<<<<< HEAD
     &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war].executor&quot;: &quot;Run&quot;,
+=======
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Whole project.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.error.html.executor&quot;: &quot;Debug&quot;,
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
     &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Weather [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Weather [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
@@ -127,23 +192,58 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+<<<<<<< HEAD
     &quot;Tomcat Server.Tomcat 11.0.18.executor&quot;: &quot;Debug&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Rebasing main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mihailskulkin/Desktop/dadaYa/Weather/src/main&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+=======
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 11.0.18.executor&quot;: &quot;Debug&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mihailskulkin/Desktop/dadaYa/Weather/app/src/main/resources/db&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+<<<<<<< HEAD
+=======
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/resources/db" />
+      <recent name="$PROJECT_DIR$/app/src/main/resources" />
+      <recent name="$PROJECT_DIR$/app/build" />
+      <recent name="$PROJECT_DIR$/app/src/test/resources" />
       <recent name="$PROJECT_DIR$/src/main" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app/src/main/resources" />
+      <recent name="$PROJECT_DIR$/app/src/test/resources" />
+      <recent name="$PROJECT_DIR$/app/src/test/resources/mappings" />
+      <recent name="$PROJECT_DIR$/app/src/test/java/org/weather/web/controller" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.weather.service" />
+      <recent name="org.weather.web.controller" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -152,7 +252,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 11.0.18">
-    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -163,66 +263,18 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":app:clean" />
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;org.weather.web.controller.UserControllerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":app:run" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="assemble" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <GradleProfilingDisabled>false</GradleProfilingDisabled>
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
@@ -252,7 +304,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileJava]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -263,7 +315,57 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="compileJava" />
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="app::Users:mihailskulkin:Desktop:dadaYa:Weather [war]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="war" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -288,7 +390,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="55bde95b-114b-4374-b055-d56440398dd2" />
+        <option name="BASE_DIRECTORY_NAME" value="63d3d525-cf4a-4b2e-aa51-776adf8f797e" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -296,7 +398,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="54975" />
+        <option name="DEBUG_PORT" value="51062" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -327,6 +429,11 @@
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
+        <EnvironmentVariables>
+          <option name="NAME" value="DB_PASSWORD" />
+          <option name="VALUE" value="12345" />
+          <option name="IS_PREDEFINED" value="false" />
+        </EnvironmentVariables>
       </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -357,6 +464,11 @@
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
+        <EnvironmentVariables>
+          <option name="NAME" value="API_KEY" />
+          <option name="VALUE" value="5aea56b59574fba09c7e3b0213d2abbd" />
+          <option name="IS_PREDEFINED" value="false" />
+        </EnvironmentVariables>
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -366,20 +478,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean]" />
-      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run]" />
-      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble]" />
+      <item itemvalue="Gradle.UserControllerTest" />
       <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [build]" />
-      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileJava]" />
+      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [clean]" />
+      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar]" />
+      <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war]" />
       <item itemvalue="Tomcat Server.Tomcat 11.0.18" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:clean]" />
-        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [:app:run]" />
-        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [compileJava]" />
-        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [assemble]" />
+        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [war]" />
+        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [clean]" />
         <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [build]" />
+        <item itemvalue="Gradle.app::Users:mihailskulkin:Desktop:dadaYa:Weather [jar]" />
+        <item itemvalue="Gradle.UserControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -411,15 +523,125 @@
       <workItem from="1784921499578" duration="1360000" />
       <workItem from="1785157499513" duration="17000" />
       <workItem from="1785162919154" duration="7595000" />
-      <workItem from="1785174238039" duration="2518000" />
+      <workItem from="1785174238039" duration="16708000" />
+      <workItem from="1785261012831" duration="1513000" />
+      <workItem from="1785315299711" duration="8000" />
+      <workItem from="1786358737822" duration="2017000" />
+      <workItem from="1786360820083" duration="72000" />
+      <workItem from="1786360908251" duration="132000" />
+      <workItem from="1786361047728" duration="3774000" />
+      <workItem from="1786365235412" duration="5549000" />
+      <workItem from="1786448893614" duration="8915000" />
+      <workItem from="1786523175021" duration="16125000" />
+      <workItem from="1787125625205" duration="1419000" />
+      <workItem from="1787252577188" duration="34000" />
+      <workItem from="1788351212770" duration="9219000" />
+      <workItem from="1788430937181" duration="17698000" />
+      <workItem from="1788524417744" duration="30918000" />
+      <workItem from="1788600323152" duration="2502000" />
+      <workItem from="1788792485101" duration="9434000" />
+      <workItem from="1788868659438" duration="21407000" />
+      <workItem from="1788938423600" duration="19000" />
+      <workItem from="1788949008644" duration="13555000" />
+      <workItem from="1788965485275" duration="1011000" />
+      <workItem from="1788966872268" duration="188000" />
+      <workItem from="1789036429512" duration="8192000" />
+      <workItem from="1789051462609" duration="23000" />
+      <workItem from="1789132870231" duration="31873000" />
+      <workItem from="1789472539756" duration="6199000" />
+      <workItem from="1789489259620" duration="4118000" />
+      <workItem from="1789556348283" duration="4575000" />
+      <workItem from="1789561031562" duration="15845000" />
+      <workItem from="1789629877018" duration="2158000" />
+      <workItem from="1789632849382" duration="14904000" />
+      <workItem from="1789741212003" duration="12549000" />
+      <workItem from="1790065367947" duration="5468000" />
+      <workItem from="1790070911962" duration="3252000" />
+      <workItem from="1790083552236" duration="855000" />
+      <workItem from="1790087123631" duration="1816000" />
+      <workItem from="1790148568177" duration="3912000" />
+      <workItem from="1790163541802" duration="22123000" />
+      <workItem from="1790240481843" duration="16999000" />
+      <workItem from="1790333197743" duration="2136000" />
+      <workItem from="1790335503975" duration="152000" />
+      <workItem from="1790335677704" duration="11506000" />
+      <workItem from="1790350267625" duration="38028000" />
+      <workItem from="1790590746081" duration="1334000" />
+      <workItem from="1790593783161" duration="4016000" />
+      <workItem from="1790597879076" duration="17219000" />
+      <workItem from="1790666414142" duration="1323000" />
+      <workItem from="1790668632248" duration="15861000" />
+      <workItem from="1790686343376" duration="27092000" />
+      <workItem from="1790839709692" duration="53000" />
+      <workItem from="1791289971946" duration="3000" />
+      <workItem from="1791370375188" duration="3074000" />
+      <workItem from="1791474222326" duration="756000" />
+      <workItem from="1791533562012" duration="22000" />
+      <workItem from="1791533592381" duration="4154000" />
+      <workItem from="1791542713815" duration="2408000" />
+      <workItem from="1791793794608" duration="5000" />
+      <workItem from="1791801616376" duration="11053000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+=======
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/5c82aa0c8b2d9e506d1e5c0c65cbe2b896816471/thymeleaf-spring6-3.1.5.RELEASE-sources.jar!/org/thymeleaf/spring6/util/FieldUtils.java</url>
+          <line>344</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/5c82aa0c8b2d9e506d1e5c0c65cbe2b896816471/thymeleaf-spring6-3.1.5.RELEASE-sources.jar!/org/thymeleaf/spring6/util/FieldUtils.java</url>
+          <line>351</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/org/weather/filter/CookieFilter.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/tools.jackson.core/jackson-databind/3.1.4/c1e72393f2cf71ee689ec1e7b1273cb47230797f/jackson-databind-3.1.4-sources.jar!/tools/jackson/databind/DeserializationContext.java</url>
+          <line>1862</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/ExceptionHandler.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="((HandlerMethod)handler).resolvedFromHandlerMethod" custom="org.springframework.web.method.HandlerMethod" />
+        <watch expression="((org.springframework.validation.support.BindingAwareModelMap)model).entrySet().toArray()[0]" custom="org.springframework.validation.support.BindingAwareModelMap" />
+      </configuration>
+    </watches-manager>
+>>>>>>> 01d6e3a (chore: изменил идентификатор у Session, а также функции связанные с этим)
   </component>
 </project>

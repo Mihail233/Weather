@@ -6,6 +6,8 @@ import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 
+import java.util.UUID;
+
 public interface UserService {
     SignUpResponse signUp(SignUpRequest signUpRequest);
 
@@ -13,6 +15,6 @@ public interface UserService {
 
     User findUserById(Long id);
 
-    void signOut(Long sessionId);
+    void signOut(UUID sessionId);
 
 }

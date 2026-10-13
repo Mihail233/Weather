@@ -3,5 +3,7 @@
   <component name="DiffGenerationConfig">
     <option name="snapshotDb" value="false" />
     <option name="snapshotModelValue" value="Weather.app.main:Weather.app.main" />
+    <option name="sourceModelValue" value="Weather.app.main:Weather.app.main" />
+    <option name="targetDbValue" value="b8710bd9-301d-439e-9d35-c833f4724641" />
   </component>
 </project>

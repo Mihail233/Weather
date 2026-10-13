@@ -1,5 +1,6 @@
 package org.weather.web.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,9 @@ import org.weather.exception.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final String delimiter = ". ";
@@ -75,10 +79,11 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public String handleUnexpected(Exception e, Model model) {
-        model.addAttribute("message", e.getMessage());
+        log.error("Unhandled exception", e);
+        model.addAttribute("message", INTERNAL_SERVER_ERROR);
         return "error";
     }
 }

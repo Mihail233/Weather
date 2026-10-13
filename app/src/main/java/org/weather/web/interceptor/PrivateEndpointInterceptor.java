@@ -18,6 +18,7 @@ import org.weather.util.CookieUtil;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class PrivateEndpointInterceptor implements HandlerInterceptor {
 
             String userSessionId = CookieUtil.getUserSessionIdFrom(cookies)
                     .orElseThrow(() -> new InvalidSessionIdException("Invalid session ID, please sign in"));
-            Long sessionId = CookieUtil.parse(userSessionId);
+            UUID sessionId = CookieUtil.parse(userSessionId);
 
             Session session = sessionService.findById(sessionId)
                     .orElseThrow(() -> new InvalidSessionException("Session not found, please sign in"));
@@ -56,7 +57,7 @@ public class PrivateEndpointInterceptor implements HandlerInterceptor {
 
             request.setAttribute(USER_ID_ATTRIBUTE, session.getUser().getId());
             request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
-            request.setAttribute(SESSION_ID_ATTRIBUTE, userSessionId);
+            request.setAttribute(SESSION_ID_ATTRIBUTE, sessionId);
         }
         return true;
     }

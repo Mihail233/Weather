@@ -11,6 +11,7 @@ import org.weather.exception.SessionExpiredException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class SessionServiceImpl implements SessionService {
         return sessionRepository.save(new Session(user, expiresAt));
     }
 
-    public Optional<Session> findById(Long id) {
+    public Optional<Session> findById(UUID id) {
         return sessionRepository.findSessionById(id);
     }
 
@@ -42,7 +43,7 @@ public class SessionServiceImpl implements SessionService {
         return expiredAt.getEpochSecond() <= now.getEpochSecond();
     }
 
-    public void deleteById(Long sessionId) {
+    public void deleteById(UUID sessionId) {
         sessionRepository.deleteById(sessionId);
     }
 }

@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
 import org.weather.exception.InvalidSessionIdException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @UtilityClass
 public class CookieUtil {
@@ -45,9 +46,9 @@ public class CookieUtil {
         return Optional.empty();
     }
 
-    public Long parse(String sessionId) {
+    public UUID parse(String sessionId) {
         try {
-            return Long.valueOf(sessionId);
+            return UUID.fromString(sessionId);
         } catch (NumberFormatException e) {
             throw new InvalidSessionIdException("Session Id not correct");
         }

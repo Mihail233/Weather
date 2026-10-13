@@ -11,6 +11,7 @@ import org.weather.common.service.UserService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.UserRepository;
+import org.weather.exception.IncorrectPasswordOrUsernameException;
 import org.weather.exception.PasswordMismatchException;
 import org.weather.exception.UserNotFoundException;
 import org.weather.exception.UserSignUpException;
@@ -20,6 +21,7 @@ import org.weather.web.dto.SignUpRequest;
 import org.weather.web.dto.SignUpResponse;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -84,12 +86,12 @@ public class UserServiceImpl implements UserService {
 
     private User findByLogin(String login) {
         return userRepository.findByLogin(login)
-                .orElseThrow(() -> new UserNotFoundException("User not found with name: " + login));
+                .orElseThrow(() -> new IncorrectPasswordOrUsernameException("Incorrect password or username; please check and try again"));
     }
 
     private void checkPasswordMatchesTheHash(String password, String hash) {
         if (!BCrypt.checkpw(password, hash)) {
-            throw new PasswordMismatchException("Incorrect password");
+            throw new IncorrectPasswordOrUsernameException("Incorrect password or username; please check and try again");
         }
     }
 
@@ -98,7 +100,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
-    public void signOut(Long sessionId) {
+    public void signOut(UUID sessionId) {
         sessionService.deleteById(sessionId);
     }
 }

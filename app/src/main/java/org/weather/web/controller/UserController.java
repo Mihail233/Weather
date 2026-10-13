@@ -20,6 +20,8 @@ import org.weather.web.dto.SignUpResponse;
 import org.weather.web.handler.ExceptionHandler;
 import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
+import java.util.UUID;
+
 import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
 
 @Controller
@@ -78,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-out")
-    public String signOut(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.SESSION_ID_ATTRIBUTE) Long sessionId) {
+    public String signOut(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.SESSION_ID_ATTRIBUTE) UUID sessionId) {
         userService.signOut(sessionId);
         CookieUtil.deleteSessionCookie(response);
 

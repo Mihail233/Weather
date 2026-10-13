@@ -60,6 +60,8 @@ dependencies {
 
     testImplementation("org.wiremock:wiremock:3.13.2")
     testImplementation("org.mockito:mockito-junit-jupiter:5.23.0")
+
+    runtimeOnly 'org.slf4j:slf4j-reload4j:2.0.20'
 }
 
 java {
