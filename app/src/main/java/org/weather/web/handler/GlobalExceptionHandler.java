@@ -1,4 +1,4 @@
-package org.weather.handler;
+package org.weather.web.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;

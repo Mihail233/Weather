@@ -1,4 +1,4 @@
-package org.weather.Interceptor;
+package org.weather.web.interceptor;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.weather.entity.Session;
+import org.weather.data.entity.Session;
 import org.weather.exception.CookieNotFoundException;
 import org.weather.exception.InvalidSessionException;
 import org.weather.exception.InvalidSessionIdException;
@@ -41,8 +41,8 @@ public class CookieInterceptor implements HandlerInterceptor {
 
             Session session = sessionService.getById(sessionId)
                     .orElseThrow(() -> new InvalidSessionException("Session not found"));
-            sessionService.checkSessionValidity(session);
 
+            sessionService.deleteExpired(session);
             request.setAttribute(CookieUtil.USER_SESSION_COOKIE, sessionId);
         }
         return true;

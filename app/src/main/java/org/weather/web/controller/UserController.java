@@ -1,4 +1,4 @@
-package org.weather.controller;
+package org.weather.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,13 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.weather.dto.SignInRequest;
-import org.weather.dto.SignInResponse;
-import org.weather.dto.SignUpRequest;
-import org.weather.dto.SignUpResponse;
-import org.weather.handler.ExceptionHandler;
 import org.weather.service.UserService;
 import org.weather.util.CookieUtil;
+import org.weather.web.dto.SignInRequest;
+import org.weather.web.dto.SignInResponse;
+import org.weather.web.dto.SignUpRequest;
+import org.weather.web.dto.SignUpResponse;
+import org.weather.web.handler.ExceptionHandler;
 
 import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
 

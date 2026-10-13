@@ -6,17 +6,17 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.weather.dto.SignInRequest;
-import org.weather.dto.SignInResponse;
-import org.weather.dto.SignUpRequest;
-import org.weather.dto.SignUpResponse;
-import org.weather.entity.Session;
-import org.weather.entity.User;
+import org.weather.data.entity.Session;
+import org.weather.data.entity.User;
+import org.weather.data.repository.UserRepository;
 import org.weather.exception.PasswordMismatchException;
 import org.weather.exception.UserLoginException;
 import org.weather.exception.UserNotFoundException;
 import org.weather.exception.UserRegistrationException;
-import org.weather.repository.UserRepository;
+import org.weather.web.dto.SignInRequest;
+import org.weather.web.dto.SignInResponse;
+import org.weather.web.dto.SignUpRequest;
+import org.weather.web.dto.SignUpResponse;
 
 import java.time.Instant;
 

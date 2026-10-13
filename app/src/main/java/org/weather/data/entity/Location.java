@@ -1,4 +1,4 @@
-package org.weather.entity;
+package org.weather.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

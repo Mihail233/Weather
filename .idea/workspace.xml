@@ -5,28 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="439825c7-0c03-4022-b714-1eb8fe305bb0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/FlywayConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/RegistrationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/static/img/weather-app.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/sign-in-with-errors.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/sign-in.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/sign-up-with-errors.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/templates/sign-up.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/config/TestDatabaseConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/web/controller/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/resources/data/cleanUp.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/resources/test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/TestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/Interceptor/CookieInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/CookieInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/FlywayRunner.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/SpringConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/LocationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignInRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignInResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignUpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/handler/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/ExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/repository/SessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
