@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public interface LocationService {
-    List<LocationResponse> showLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException;
+    List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException;
 
     void addNewLocation(LocationAdditionRequest locationAdditionRequest, Long userId);
 

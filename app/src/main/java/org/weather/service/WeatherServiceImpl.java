@@ -6,7 +6,7 @@ import org.weather.common.service.OpenWeatherService;
 import org.weather.common.service.WeatherService;
 import org.weather.data.entity.Location;
 import org.weather.data.repository.LocationRepository;
-import org.weather.exception.OpenWeatherServerException;
+import org.weather.exception.OpenWeatherRejectedException;
 import org.weather.exception.WeatherClientException;
 import org.weather.web.dto.WeatherResponse;
 import org.weather.web.dto.api.WeatherApiResponse;
@@ -26,7 +26,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherMapper weatherMapper;
 
-    public List<WeatherResponse> showWeather(Long userId) throws URISyntaxException, IOException, InterruptedException {
+    public List<WeatherResponse> getWeather(Long userId) throws URISyntaxException, IOException, InterruptedException {
         List<Location> locations = locationRepository.findAllByUserId(userId);
         List<Optional<WeatherApiResponse>> weatherApiResponses = requestWeather(locations);
         return weatherMapper.toResponseList(weatherApiResponses, locations);
@@ -38,7 +38,7 @@ public class WeatherServiceImpl implements WeatherService {
             try {
                 WeatherApiResponse weatherApiResponse = openWeatherService.requestWeather(location.getLatitude().toString(), location.getLongitude().toString());
                 weatherApiResponses.add(Optional.of(weatherApiResponse));
-            } catch (OpenWeatherServerException | WeatherClientException e) {
+            } catch (OpenWeatherRejectedException | WeatherClientException e) {
                 weatherApiResponses.add(Optional.empty());
             }
         }

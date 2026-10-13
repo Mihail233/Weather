@@ -20,7 +20,7 @@ public class WeatherController {
 
     @GetMapping("/weather")
     public String getWeatherPage(@RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, Model model) throws URISyntaxException, IOException, InterruptedException {
-        List<WeatherResponse> weatherResponses = weatherService.showWeather(userId);
+        List<WeatherResponse> weatherResponses = weatherService.getWeather(userId);
         model.addAttribute("weatherResponses", weatherResponses);
         return "index";
     }

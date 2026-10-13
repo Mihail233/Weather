@@ -7,15 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.weather.config.OpenWeatherTestConfig;
-import org.weather.exception.LocationClientException;
-import org.weather.exception.OpenWeatherServerException;
+import org.weather.exception.OpenWeatherRejectedException;
 import org.weather.web.dto.api.LocationApiResponse;
 
 import java.io.IOException;
@@ -31,20 +29,18 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 @WebAppConfiguration
 class OpenWeatherServiceTest {
 
+    private static final String APPID = "TEST_KEY";
     @RegisterExtension
     static WireMockExtension wireMockServer = WireMockExtension.newInstance()
             .options(wireMockConfig().dynamicPort())
             .build();
-
-    @Value("${test.openWeather.api.key}")
-    private String APPID;
-
     @Autowired
     private OpenWeatherServiceImpl openWeatherService;
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("openWeather.api.base-url", wireMockServer::baseUrl);
+        registry.add("openWeather.api.key", () -> APPID);
     }
 
     @Test
@@ -84,7 +80,7 @@ class OpenWeatherServiceTest {
                 .willReturn(aResponse()
                         .withStatus(400)));
 
-        Assertions.assertThrows(LocationClientException.class, () -> openWeatherService.requestLocations("Moscow"));
+        Assertions.assertThrows(OpenWeatherRejectedException.class, () -> openWeatherService.requestLocations("Moscow"));
     }
 
     @Test
@@ -93,6 +89,6 @@ class OpenWeatherServiceTest {
                 .willReturn(aResponse()
                         .withStatus(500)));
 
-        Assertions.assertThrows(OpenWeatherServerException.class, () -> openWeatherService.requestLocations("Moscow"));
+        Assertions.assertThrows(OpenWeatherRejectedException.class, () -> openWeatherService.requestLocations("Moscow"));
     }
 }

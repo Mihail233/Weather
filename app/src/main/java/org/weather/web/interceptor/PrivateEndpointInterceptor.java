@@ -1,6 +1,5 @@
 package org.weather.web.interceptor;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,14 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.weather.common.service.SessionService;
+import org.weather.common.service.CookieService;
 import org.weather.data.entity.Session;
-import org.weather.exception.UnauthenticatedException;
-import org.weather.util.CookieUtil;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -29,32 +25,20 @@ public class PrivateEndpointInterceptor implements HandlerInterceptor {
     private static final String GET = "GET";
     private static final String POST = "POST";
 
-    private static final Map<String, Set<String>> PRIVATE_ENDPOINTS = Map.of(
-            "/weather", Set.of(GET),
-            "/location/search", Set.of(GET, POST),
-            "/location/add", Set.of(POST),
-            "/location/delete", Set.of(POST),
-            "/sign-out", Set.of(POST)
+    private static final Map<String, Set<String>> PUBLIC_ENDPOINTS = Map.of(
+            "/sign-up", Set.of(GET, POST),
+            "/sign-in", Set.of(GET, POST)
     );
 
-    private final SessionService sessionService;
+    private final CookieService cookieService;
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (isPrivateEndpoint(request)) {
-            Cookie[] cookies = CookieUtil.getCookies(request)
-                    .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
-
-            String userSessionId = CookieUtil.getUserSessionIdFrom(cookies)
-                    .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
-            UUID sessionId = CookieUtil.parse(userSessionId);
-
-            Session session = sessionService.findById(sessionId)
-                    .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
-
+            Session session = cookieService.getAndValidateSession(request);
             request.setAttribute(USER_ID_ATTRIBUTE, session.getUser().getId());
             request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
-            request.setAttribute(SESSION_ID_ATTRIBUTE, sessionId);
+            request.setAttribute(SESSION_ID_ATTRIBUTE, session.getId());
         }
         return true;
     }
@@ -74,6 +58,6 @@ public class PrivateEndpointInterceptor implements HandlerInterceptor {
         String path = request.getServletPath();
         String method = request.getMethod();
 
-        return PRIVATE_ENDPOINTS.containsKey(path) && PRIVATE_ENDPOINTS.get(path).contains(method);
+        return !(PUBLIC_ENDPOINTS.containsKey(path) && PUBLIC_ENDPOINTS.get(path).contains(method));
     }
 }

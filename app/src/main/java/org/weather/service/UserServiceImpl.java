@@ -1,6 +1,7 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import static org.weather.util.ServiceUtil.isConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private static final int LOG_ROUNDS = 12;
 
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
             int expiresAt = getExpiresAtInSeconds(session.getExpiresAt());
             return new SignUpResponse(session.getId().toString(), expiresAt);
         } catch (NestedRuntimeException e) {
+            log.error("Database exception", e);
             if (isConstraintViolationException(e)) {
                 throw new UserAlreadyExistsException("Failed to sign up the user, a user with this name is already registered", e);
             }

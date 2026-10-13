@@ -32,7 +32,7 @@ public class LocationController {
 
     @PostMapping("/search")
     public String searchLocationsByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
-        List<LocationResponse> locationResponses = locationService.showLocations(locationSearchRequest);
+        List<LocationResponse> locationResponses = locationService.searchLocations(locationSearchRequest);
         setResponseStatusIfNoLocations(response, locationResponses);
 
         model.addAttribute("locationResponses", locationResponses);
@@ -47,13 +47,13 @@ public class LocationController {
     }
 
     @PostMapping("/add")
-    public String addNewLocation(HttpServletResponse response, @Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId) {
+    public String addNewLocation(@Valid @ModelAttribute LocationAdditionRequest locationAdditionRequest, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId) {
         locationService.addNewLocation(locationAdditionRequest, userId);
         return "redirect:/weather";
     }
 
     @PostMapping("/delete")
-    public String deleteLocation(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, @Valid LocationRemovalRequest locationRemovalRequest) {
+    public String deleteLocation(@RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, @Valid LocationRemovalRequest locationRemovalRequest) {
         locationService.deleteLocation(locationRemovalRequest, userId);
         return "redirect:/weather";
     }

@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.weather.common.service.OpenWeatherService;
-import org.weather.exception.LocationClientException;
-import org.weather.exception.OpenWeatherServerException;
-import org.weather.exception.WeatherClientException;
+import org.weather.exception.OpenWeatherRejectedException;
 import org.weather.web.dto.api.LocationApiResponse;
 import org.weather.web.dto.api.WeatherApiResponse;
 import tools.jackson.databind.json.JsonMapper;
@@ -27,6 +25,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OpenWeatherServiceImpl implements OpenWeatherService {
+    public static final int STARTED_INDEX = 0;
+
     private static final String LOCATIONS_PATH = "/geo/1.0/direct?";
     private static final String WEATHER_PATH = "/data/2.5/weather?";
 
@@ -45,8 +45,6 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     private static final String QUERY_PARAMETERS_SEPARATOR = "&";
     private static final String KEY_VALUE_SEPARATOR = "=";
 
-    private static final int STARTED_INDEX = 0;
-
     private final JsonMapper jsonMapper = new JsonMapper();
 
     private final HttpClient httpClient;
@@ -62,7 +60,7 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + LOCATIONS_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 
-        validateLocationHttpResponses(response);
+        validateHttpResponses(response);
         return deserializeLocationHttpResponses(response);
     }
 
@@ -90,29 +88,18 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         try {
             return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (HttpConnectTimeoutException e) {
-            throw new OpenWeatherServerException("An service-side exception occurred while accessing the OpenWeather");
+            throw new OpenWeatherRejectedException("An service-side exception occurred while accessing the OpenWeather");
         }
     }
 
-    private void validateLocationHttpResponses(HttpResponse<String> response) {
+    private void validateHttpResponses(HttpResponse<String> response) {
         HttpStatus statusCode = HttpStatus.valueOf(response.statusCode());
         if (statusCode.is4xxClientError()) {
-            throw new LocationClientException("An exception occurred while requesting locations, please check the location name");
+            throw new OpenWeatherRejectedException("An exception occurred while executing the request; please check the input parameters");
         }
 
         if (statusCode.is5xxServerError()) {
-            throw new OpenWeatherServerException("An service-side exception occurred while accessing the OpenWeather");
-        }
-    }
-
-    private void validateWeatherHttpResponse(HttpResponse<String> response) {
-        HttpStatus statusCode = HttpStatus.valueOf(response.statusCode());
-        if (statusCode.is4xxClientError()) {
-            throw new WeatherClientException("An exception occurred while requesting weather, please check the latitude, longitude");
-        }
-
-        if (statusCode.is5xxServerError()) {
-            throw new OpenWeatherServerException("An service-side exception occurred while accessing the OpenWeather");
+            throw new OpenWeatherRejectedException("An service-side exception occurred while accessing the OpenWeather");
         }
     }
 
@@ -125,7 +112,7 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + WEATHER_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 
-        validateWeatherHttpResponse(response);
+        validateHttpResponses(response);
         return deserializeWeatherHttpResponse(response);
     }
 

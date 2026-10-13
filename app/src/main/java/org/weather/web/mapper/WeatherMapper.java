@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.weather.service.OpenWeatherServiceImpl.STARTED_INDEX;
+
 @Component
 public class WeatherMapper {
-    private static final int STARTED_INDEX = 0;
-
     public List<WeatherResponse> toResponseList(List<Optional<WeatherApiResponse>> weatherApiResponses, List<Location> locations) {
         if (weatherApiResponses == null) {
             return null;
         }
 
-        List<WeatherResponse> list = new ArrayList<WeatherResponse>(weatherApiResponses.size());
+        List<WeatherResponse> list = new ArrayList<>(weatherApiResponses.size());
 
         for (int index = STARTED_INDEX; index < weatherApiResponses.size(); index++) {
             Optional<WeatherApiResponse> weatherApiResponse = weatherApiResponses.get(index);
@@ -32,7 +32,8 @@ public class WeatherMapper {
 
     private WeatherResponse map(WeatherApiResponse weatherApiResponse, Location location) {
         int index = 0;
-        WeatherResponse weatherResponse = new WeatherResponse(
+
+        return new WeatherResponse(
                 location.getId(),
                 location.getName(),
                 weatherApiResponse.weatherConditionsResponse()[index].icon(),
@@ -43,7 +44,5 @@ public class WeatherMapper {
                 location.getLatitude().stripTrailingZeros(),
                 location.getLongitude().stripTrailingZeros()
         );
-
-        return weatherResponse;
     }
 }

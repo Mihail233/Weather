@@ -7,5 +7,5 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public interface WeatherService {
-    List<WeatherResponse> showWeather(Long userId) throws URISyntaxException, IOException, InterruptedException;
+    List<WeatherResponse> getWeather(Long userId) throws URISyntaxException, IOException, InterruptedException;
 }

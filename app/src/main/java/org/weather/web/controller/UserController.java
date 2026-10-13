@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.weather.common.service.CookieService;
 import org.weather.common.service.UserService;
-import org.weather.util.CookieUtil;
 import org.weather.web.dto.SignInRequest;
 import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
@@ -22,12 +22,13 @@ import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
 import java.util.UUID;
 
-import static org.weather.util.CookieUtil.USER_SESSION_COOKIE;
+import static org.weather.service.CookieServiceImpl.USER_SESSION_COOKIE;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final CookieService cookieService;
     private final ExceptionHandler exceptionHandler;
 
     @GetMapping("/sign-up")
@@ -45,7 +46,7 @@ public class UserController {
 
         try {
             SignUpResponse signUpResponse = userService.signUp(signUpRequest);
-            CookieUtil.setCookie(response, USER_SESSION_COOKIE, signUpResponse.id(), signUpResponse.expiresAt());
+            cookieService.setCookie(response, USER_SESSION_COOKIE, signUpResponse.id(), signUpResponse.expiresAt());
         } catch (Exception e) {
             exceptionHandler.handle(response, bindingResult, e);
             return "sign-up-with-errors";
@@ -69,7 +70,7 @@ public class UserController {
 
         try {
             SignInResponse signInResponse = userService.signIn(signInRequest);
-            CookieUtil.setCookie(response, USER_SESSION_COOKIE, signInResponse.id(), signInResponse.expiresAt());
+            cookieService.setCookie(response, USER_SESSION_COOKIE, signInResponse.id(), signInResponse.expiresAt());
         } catch (Exception e) {
             exceptionHandler.handle(response, bindingResult, e);
             return "sign-in-with-errors";
@@ -81,7 +82,7 @@ public class UserController {
     @PostMapping("/sign-out")
     public String signOut(HttpServletResponse response, @RequestAttribute(name = PrivateEndpointInterceptor.SESSION_ID_ATTRIBUTE) UUID sessionId) {
         userService.signOut(sessionId);
-        CookieUtil.deleteSessionCookie(response);
+        cookieService.deleteSessionCookie(response);
 
         return "redirect:/sign-in";
     }

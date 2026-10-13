@@ -1,6 +1,7 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
 import org.weather.common.service.LocationService;
@@ -28,6 +29,7 @@ import static org.weather.util.ServiceUtil.isConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LocationServiceImpl implements LocationService {
     private final UserService userService;
     private final OpenWeatherService openWeatherService;
@@ -36,7 +38,7 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationMapper locationMapper;
 
-    public List<LocationResponse> showLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException {
+    public List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException {
         LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(locationSearchRequest.getLocationName());
         return locationMapper.toResponseList(locationApiResponses);
     }
@@ -47,6 +49,7 @@ public class LocationServiceImpl implements LocationService {
         try {
             locationRepository.save(location);
         } catch (NestedRuntimeException e) {
+            log.error("Database exception", e);
             if (isConstraintViolationException(e)) {
                 throw new LocationAlreadyExistsException(String.format("The location has already been added: %s; please select another one", location.getName()));
             }

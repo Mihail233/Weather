@@ -26,7 +26,7 @@ public class SessionServiceImpl implements SessionService {
     private final SessionRepository sessionRepository;
 
     public Session createAndSave(User user) {
-        Instant expiresAt = Instant.now().plus(SESSION_TTL_HOURS, ChronoUnit.SECONDS);
+        Instant expiresAt = Instant.now().plus(SESSION_TTL_HOURS, ChronoUnit.HOURS);
         return sessionRepository.save(new Session(user, expiresAt));
     }
 

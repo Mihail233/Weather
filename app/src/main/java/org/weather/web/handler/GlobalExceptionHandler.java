@@ -72,16 +72,9 @@ public class GlobalExceptionHandler {
         return String.join(delimiter, messages);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(LocationClientException.class)
-    public String handleLocationClientException(LocationClientException e, Model model) {
-        model.addAttribute("message", e.getMessage());
-        return "error";
-    }
-
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
-    @ExceptionHandler(OpenWeatherServerException.class)
-    public String handleOpenWeatherServerException(OpenWeatherServerException e, Model model) {
+    @ExceptionHandler(OpenWeatherRejectedException.class)
+    public String handleOpenWeatherRejectedException(OpenWeatherRejectedException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "error";
     }

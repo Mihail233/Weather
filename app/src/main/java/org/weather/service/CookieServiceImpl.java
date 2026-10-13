@@ -1,17 +1,23 @@
-package org.weather.util;
+package org.weather.service;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.experimental.UtilityClass;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.weather.common.service.CookieService;
+import org.weather.common.service.SessionService;
+import org.weather.data.entity.Session;
 import org.weather.exception.UnauthenticatedException;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@UtilityClass
-public class CookieUtil {
+@Service
+@RequiredArgsConstructor
+public class CookieServiceImpl implements CookieService {
     public static final String USER_SESSION_COOKIE = "user_session";
+    private final SessionService sessionService;
 
     public void setCookie(HttpServletResponse response, String name, String value, int expiresAt) {
         Cookie cookie = new Cookie(name, value);
@@ -29,7 +35,20 @@ public class CookieUtil {
         response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     }
 
-    public Optional<Cookie[]> getCookies(HttpServletRequest request) {
+    public Session getAndValidateSession(HttpServletRequest request) {
+        Cookie[] cookies = getCookies(request)
+                .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
+
+        String userSessionId = getUserSessionIdFrom(cookies)
+                .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
+        UUID sessionId = parse(userSessionId);
+
+        return sessionService.findById(sessionId)
+                .orElseThrow(() -> new UnauthenticatedException("Failed to authentication the user, please sign in"));
+    }
+
+
+    private Optional<Cookie[]> getCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             return Optional.empty();
@@ -37,7 +56,7 @@ public class CookieUtil {
         return Optional.of(cookies);
     }
 
-    public Optional<String> getUserSessionIdFrom(Cookie[] cookies) {
+    private Optional<String> getUserSessionIdFrom(Cookie[] cookies) {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(USER_SESSION_COOKIE)) {
                 return Optional.of(cookie.getValue());
@@ -46,7 +65,7 @@ public class CookieUtil {
         return Optional.empty();
     }
 
-    public UUID parse(String sessionId) {
+    private UUID parse(String sessionId) {
         try {
             return UUID.fromString(sessionId);
         } catch (NumberFormatException e) {
