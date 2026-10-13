@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Locations")
+@Table(name = "Locations", indexes = {
+        @Index(columnList = "user_id, latitude, longitude", unique = true, name = "without_dublicate_locations_for_user_index")
+})
 @Getter
 @NoArgsConstructor
+
 public class Location {
 
     @Id

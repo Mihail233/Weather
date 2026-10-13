@@ -1,9 +1,6 @@
 package org.weather.web.dto;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,11 +17,13 @@ public class LocationAdditionRequest {
     @Size(min = 1, max = 100, message = "Country name must be between 1 and 100 characters long")
     private String country;
 
+    @NotNull
     @DecimalMin(value = "-90", message = "Latitude cannot be less than -90 degrees")
     @DecimalMax(value = "90", message = "Latitude cannot exceed 90 degrees")
     private BigDecimal latitude;
 
-    @DecimalMin(value = "-180", message = "Longitude cannot be less than -90 degrees")
-    @DecimalMax(value = "180", message = "Longitude cannot exceed 90 degrees")
+    @NotNull
+    @DecimalMin(value = "-180", message = "Longitude cannot be less than -180 degrees")
+    @DecimalMax(value = "180", message = "Longitude cannot exceed 180 degrees")
     private BigDecimal longitude;
 }

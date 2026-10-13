@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX without_dublicate_locations_for_user_index ON Locations (user_id, latitude, longitude);

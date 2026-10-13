@@ -1,6 +1,7 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
 import org.weather.common.service.LocationService;
 import org.weather.common.service.OpenWeatherService;
@@ -9,6 +10,7 @@ import org.weather.data.entity.Location;
 import org.weather.data.entity.User;
 import org.weather.data.repository.LocationRepository;
 import org.weather.exception.AccessLocationException;
+import org.weather.exception.LocationAlreadyExistsException;
 import org.weather.exception.LocationNotFoundException;
 import org.weather.web.dto.LocationAdditionRequest;
 import org.weather.web.dto.LocationRemovalRequest;
@@ -22,11 +24,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
+import static org.weather.util.ServiceUtil.isConstraintViolationException;
+
 @Service
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
-    private static final String NAME_COUNTRY_SEPARATOR = " ";
-
     private final UserService userService;
     private final OpenWeatherService openWeatherService;
 
@@ -41,8 +43,15 @@ public class LocationServiceImpl implements LocationService {
 
     public void addNewLocation(LocationAdditionRequest locationAdditionRequest, Long userId) {
         User user = userService.findUserById(userId);
-        Location location = new Location(locationAdditionRequest.getName() + NAME_COUNTRY_SEPARATOR + locationAdditionRequest.getCountry(), user, locationAdditionRequest.getLatitude(), locationAdditionRequest.getLongitude());
-        locationRepository.save(location);
+        Location location = new Location(locationAdditionRequest.getName(), user, locationAdditionRequest.getLatitude(), locationAdditionRequest.getLongitude());
+        try {
+            locationRepository.save(location);
+        } catch (NestedRuntimeException e) {
+            if (isConstraintViolationException(e)) {
+                throw new LocationAlreadyExistsException(String.format("The location has already been added: %s; please select another one", location.getName()));
+            }
+            throw e;
+        }
     }
 
     public void deleteLocation(LocationRemovalRequest locationRemovalRequest, Long userId) {

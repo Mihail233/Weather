@@ -31,8 +31,15 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({NoHandlerFoundException.class})
-    public String handleNoHandlerFoundException(NoHandlerFoundException e, Model model) {
+    public String handleNoHandlerFoundException(Model model) {
         model.addAttribute("message", "Page not found");
+        return "error";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handleUserNotFoundException(UserNotFoundException e, Model model) {
+        model.addAttribute("message", e.getMessage());
         return "error";
     }
 
@@ -82,6 +89,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(WeatherClientException.class)
     public String handleWeatherClientException(WeatherClientException e, Model model) {
+        model.addAttribute("message", e.getMessage());
+        return "error";
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(LocationAlreadyExistsException.class)
+    public String handleLocationAlreadyExistsException(LocationAlreadyExistsException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "error";
     }

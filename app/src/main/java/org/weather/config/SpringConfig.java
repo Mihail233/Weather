@@ -14,6 +14,9 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
+import java.net.http.HttpClient;
+import java.time.Duration;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("org.weather")
@@ -73,5 +76,12 @@ public class SpringConfig implements WebMvcConfigurer {
 
         PrivateEndpointInterceptor privateEndpointInterceptor = applicationContext.getBean(PrivateEndpointInterceptor.class);
         registry.addInterceptor(privateEndpointInterceptor);
+    }
+
+    @Bean
+    public HttpClient createHttpClient() {
+        return HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(3))
+                .build();
     }
 }

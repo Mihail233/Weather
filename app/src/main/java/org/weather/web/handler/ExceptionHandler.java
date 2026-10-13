@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.weather.exception.PasswordMismatchException;
-import org.weather.exception.UserNotFoundException;
-import org.weather.exception.UserSignUpException;
+import org.weather.exception.UnauthenticatedException;
+import org.weather.exception.UserAlreadyExistsException;
 
 @Component
 public class ExceptionHandler {
@@ -20,10 +20,10 @@ public class ExceptionHandler {
         switch (e) {
             case PasswordMismatchException passwordMismatchException ->
                     addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
-            case UserSignUpException userSignUpException ->
-                    addErrorAndSetStatus(response, bindingResult, message, HttpStatus.BAD_REQUEST);
-            case UserNotFoundException userNotFoundException ->
-                    addErrorAndSetStatus(response, bindingResult, message, HttpStatus.NOT_FOUND);
+            case UserAlreadyExistsException userAlreadyExistsException ->
+                    addErrorAndSetStatus(response, bindingResult, message, HttpStatus.CONFLICT);
+            case UnauthenticatedException unauthenticatedException ->
+                    addErrorAndSetStatus(response, bindingResult, message, HttpStatus.UNAUTHORIZED);
             default ->
                     addErrorAndSetStatus(response, bindingResult, INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
         }

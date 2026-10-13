@@ -1,7 +1,6 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Service;
@@ -11,10 +10,10 @@ import org.weather.common.service.UserService;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.UserRepository;
-import org.weather.exception.IncorrectPasswordOrUsernameException;
 import org.weather.exception.PasswordMismatchException;
+import org.weather.exception.UnauthenticatedException;
+import org.weather.exception.UserAlreadyExistsException;
 import org.weather.exception.UserNotFoundException;
-import org.weather.exception.UserSignUpException;
 import org.weather.web.dto.SignInRequest;
 import org.weather.web.dto.SignInResponse;
 import org.weather.web.dto.SignUpRequest;
@@ -22,6 +21,8 @@ import org.weather.web.dto.SignUpResponse;
 
 import java.time.Instant;
 import java.util.UUID;
+
+import static org.weather.util.ServiceUtil.isConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,15 +47,10 @@ public class UserServiceImpl implements UserService {
             return new SignUpResponse(session.getId().toString(), expiresAt);
         } catch (NestedRuntimeException e) {
             if (isConstraintViolationException(e)) {
-                throw new UserSignUpException("Failed to sign up the user, a user with this name is already registered", e);
+                throw new UserAlreadyExistsException("Failed to sign up the user, a user with this name is already registered", e);
             }
             throw e;
         }
-    }
-
-    private static boolean isConstraintViolationException(NestedRuntimeException e) {
-        Throwable cause = e.getCause();
-        return ConstraintViolationException.class.isAssignableFrom(cause.getClass());
     }
 
     public int getExpiresAtInSeconds(Instant expiresAt) {
@@ -86,12 +82,12 @@ public class UserServiceImpl implements UserService {
 
     private User findByLogin(String login) {
         return userRepository.findByLogin(login)
-                .orElseThrow(() -> new IncorrectPasswordOrUsernameException("Incorrect password or username; please check and try again"));
+                .orElseThrow(() -> new UnauthenticatedException("Incorrect password or username; please check and try again"));
     }
 
     private void checkPasswordMatchesTheHash(String password, String hash) {
         if (!BCrypt.checkpw(password, hash)) {
-            throw new IncorrectPasswordOrUsernameException("Incorrect password or username; please check and try again");
+            throw new UnauthenticatedException("Incorrect password or username; please check and try again");
         }
     }
 

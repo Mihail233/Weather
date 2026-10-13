@@ -7,12 +7,13 @@ import org.weather.web.dto.api.WeatherApiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class WeatherMapper {
     private static final int STARTED_INDEX = 0;
 
-    public List<WeatherResponse> toResponseList(List<WeatherApiResponse> weatherApiResponses, List<Location> locations) {
+    public List<WeatherResponse> toResponseList(List<Optional<WeatherApiResponse>> weatherApiResponses, List<Location> locations) {
         if (weatherApiResponses == null) {
             return null;
         }
@@ -20,7 +21,10 @@ public class WeatherMapper {
         List<WeatherResponse> list = new ArrayList<WeatherResponse>(weatherApiResponses.size());
 
         for (int index = STARTED_INDEX; index < weatherApiResponses.size(); index++) {
-            list.add(map(weatherApiResponses.get(index), locations.get(index)));
+            Optional<WeatherApiResponse> weatherApiResponse = weatherApiResponses.get(index);
+            if (weatherApiResponse.isPresent()) {
+                list.add(map(weatherApiResponse.get(), locations.get(index)));
+            }
         }
 
         return list;

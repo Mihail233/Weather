@@ -15,9 +15,12 @@ import tools.jackson.databind.json.JsonMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
+import java.net.http.HttpConnectTimeoutException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +44,12 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
 
     private static final String QUERY_PARAMETERS_SEPARATOR = "&";
     private static final String KEY_VALUE_SEPARATOR = "=";
-    private static final String SPACE_IN_URI = " ";
-    private static final String PLUS_IN_URI = "+";
 
     private static final int STARTED_INDEX = 0;
 
     private final JsonMapper jsonMapper = new JsonMapper();
+
+    private final HttpClient httpClient;
 
     @Value("${openWeather.api.base-url}")
     private String OPEN_WEATHER_URI;
@@ -66,7 +69,8 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     private List<String> getQueryParameters(List<String> keys, List<String> values) {
         List<String> queryParameters = new ArrayList<>();
         for (int index = STARTED_INDEX; index < keys.size(); index++) {
-            queryParameters.add(keys.get(index) + KEY_VALUE_SEPARATOR + values.get(index));
+            String value = values.get(index);
+            queryParameters.add(keys.get(index) + KEY_VALUE_SEPARATOR + URLEncoder.encode(value, StandardCharsets.UTF_8));
         }
         return queryParameters;
     }
@@ -79,14 +83,15 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     }
 
     private URI buildURIWithQueryParameters(String URI, List<String> queryParameters) throws URISyntaxException {
-        return new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters))
-                .replace(SPACE_IN_URI, PLUS_IN_URI));
+        return new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)));
     }
 
     private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return HttpClient.newBuilder()
-                .build()
-                .send(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (HttpConnectTimeoutException e) {
+            throw new OpenWeatherServerException("An service-side exception occurred while accessing the OpenWeather");
+        }
     }
 
     private void validateLocationHttpResponses(HttpResponse<String> response) {
