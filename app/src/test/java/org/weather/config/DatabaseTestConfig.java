@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:test.properties")
 @ComponentScan("org.weather")
-public class TestDatabaseConfig {
+public class DatabaseTestConfig {
 
     private static final String HIBERNATE_DIALECT_KEY = "hibernate.dialect";
     private static final String HIBERNATE_HBM_2_DDL_AUTO_KEY = "hibernate.hbm2ddl.auto";

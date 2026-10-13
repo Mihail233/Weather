@@ -23,7 +23,7 @@ public class SessionService {
     }
 
     public Optional<Session> getById(Long id) {
-        return sessionRepository.findById(id);
+        return sessionRepository.findSessionById(id);
     }
 
     public void deleteExpired(Session session) {

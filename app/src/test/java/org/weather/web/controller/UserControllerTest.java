@@ -10,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.weather.config.TestDatabaseConfig;
+import org.weather.config.DatabaseTestConfig;
 import org.weather.data.entity.Session;
 import org.weather.data.entity.User;
 import org.weather.data.repository.SessionRepository;
@@ -27,7 +27,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {TestDatabaseConfig.class})
+@ContextConfiguration(classes = {DatabaseTestConfig.class})
 @WebAppConfiguration
 class UserControllerTest {
     private static final String LOGIN = "testUsername";
@@ -49,11 +49,11 @@ class UserControllerTest {
     @Test
     @Sql(scripts = {"/data/cleanUp.sql"})
     @Transactional
-    void signUpUserAndSessionAssociationTest() {
+    void verificationOfLinkBetweenSessionAndUserTest() {
         SignUpRequest signUpRequest = fillSignUpRequest(new SignUpRequest());
         SignUpResponse signUpResponse = userService.signUp(signUpRequest);
 
-        Optional<User> user = userRepository.getByLogin(LOGIN);
+        Optional<User> user = userRepository.findByLogin(LOGIN);
         Assertions.assertDoesNotThrow(() -> {
             user.get();
         });
@@ -75,7 +75,7 @@ class UserControllerTest {
 
     @Test
     @Sql(scripts = {"/data/cleanUp.sql"})
-    void signUpUserAlreadyRegistered() {
+    void userRegistrationWithNonUniqueUsernameTest() {
         SignUpRequest signUpRequest = fillSignUpRequest(new SignUpRequest());
         userService.signUp(signUpRequest);
 
@@ -86,7 +86,7 @@ class UserControllerTest {
     @Test
     @Sql(scripts = {"/data/cleanUp.sql"})
     @Transactional
-    void sessionServiceCheckSessionExpirationTest() {
+    void checkSessionExpirationTest() {
         User user = userRepository.save(new User(LOGIN, PASSWORD));
 
         Instant expiredAt = Instant.now().minus(1L, ChronoUnit.HOURS);

@@ -1,0 +1,7 @@
+ALTER TABLE Locations
+ALTER
+COLUMN latitude TYPE DECIMAL(18, 16) USING (latitude::DECIMAL(18, 16));
+
+ALTER TABLE Locations
+ALTER
+COLUMN longitude TYPE DECIMAL(19, 16) USING (longitude::DECIMAL(19, 16));

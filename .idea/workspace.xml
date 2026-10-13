@@ -5,33 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="439825c7-0c03-4022-b714-1eb8fe305bb0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/config/TestDatabaseConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/web/controller/UserControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/resources/data/cleanUp.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/resources/test.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/LocationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/exception/IncorrectLocationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/exception/LocationNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/LocationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/WeatherService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/AddingLocationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/RemovalLocationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/db/V2__change_latitude_and_longitude.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/config/OpenWeatherTestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/service/OpenWeatherServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/Interceptor/CookieInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/CookieInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/DatabaseConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/config/SpringConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignInRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignInResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/dto/SignUpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/handler/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/ExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/handler/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/repository/SessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/entity/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/SessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/data/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/OpenWeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/OpenWeatherService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/SessionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/controller/LocationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignInRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/api/LocationApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/dto/api/LocationApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/CookieInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/weather/web/interceptor/CookieInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/templates/search-results.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/org/weather/config/TestDatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/config/DatabaseTestConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/org/weather/web/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/org/weather/web/controller/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/resources/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/resources/test.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

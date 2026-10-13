@@ -52,6 +52,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation "org.glassfish.expressly:expressly:6.0.0"
+
+    testImplementation("org.wiremock:wiremock:3.13.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.23.0")
 }
 
 java {

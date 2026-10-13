@@ -20,6 +20,9 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class CookieInterceptor implements HandlerInterceptor {
+    public static final String USER_ID_ATTRIBUTE = "user_id";
+    public static final String USER_NAME_ATTRIBUTE = "user_name";
+
     private static final String GET = "GET";
     private static final String POST = "POST";
 
@@ -43,7 +46,9 @@ public class CookieInterceptor implements HandlerInterceptor {
                     .orElseThrow(() -> new InvalidSessionException("Session not found"));
 
             sessionService.deleteExpired(session);
-            request.setAttribute(CookieUtil.USER_SESSION_COOKIE, sessionId);
+
+            request.setAttribute(USER_ID_ATTRIBUTE, session.getUser().getId());
+            request.setAttribute(USER_NAME_ATTRIBUTE, session.getUser().getLogin());
         }
         return true;
     }

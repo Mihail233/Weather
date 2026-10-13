@@ -1,7 +1,6 @@
 package org.weather.web.dto.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.Map;

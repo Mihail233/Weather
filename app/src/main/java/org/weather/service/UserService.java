@@ -81,7 +81,7 @@ public class UserService {
         String password = signInRequest.getPassword();
 
         try {
-            User user = getByLogin(login);
+            User user = findByLogin(login);
             checkPasswordMatchesTheHash(password, user.getPassword());
 
             Session session = sessionService.createAndSave(user);
@@ -96,8 +96,13 @@ public class UserService {
         }
     }
 
-    private User getByLogin(String login) {
-        return userRepository.getByLogin(login)
+    private User findByLogin(String login) {
+        return userRepository.findByLogin(login)
                 .orElseThrow(() -> new UserNotFoundException("User not found with name: " + login));
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with this id"));
     }
 }

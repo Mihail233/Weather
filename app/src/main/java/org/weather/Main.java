@@ -1,7 +1,6 @@
 package org.weather;
 
 import org.weather.service.OpenWeatherService;
-import org.weather.web.dto.api.LocationApiResponse;
 import org.weather.web.dto.api.WeatherApiResponse;
 
 import java.io.IOException;

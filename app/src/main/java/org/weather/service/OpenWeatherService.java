@@ -1,7 +1,9 @@
 package org.weather.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.weather.exception.LocationClientException;
 import org.weather.exception.OpenWeatherServerException;
 import org.weather.exception.WeatherClientException;
@@ -18,13 +20,14 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class OpenWeatherService {
-    private static final String LOCATIONS_URI = "https://api.openweathermap.org/geo/1.0/direct?";
-    private static final String WEATHER_URI = "https://api.openweathermap.org/data/2.5/weather?";
+
+    private static final String LOCATIONS_PATH = "/geo/1.0/direct?";
+    private static final String WEATHER_PATH = "/data/2.5/weather?";
 
     private static final String APPID_KEY = "appid";
-    private static final String APPID = "5aea56b59574fba09c7e3b0213d2abbd";
 
     private static final String LIMIT_KEY = "limit";
     private static final String LIMIT = "5";
@@ -39,14 +42,19 @@ public class OpenWeatherService {
 
     private final JsonMapper jsonMapper = new JsonMapper();
 
-    public LocationApiResponse requestLocations(String name) throws URISyntaxException, IOException, InterruptedException {
+    @Value("${openWeather.api.base-url}")
+    private String OPEN_WEATHER_URI;
+
+    @Value("${openWeather.api.key}")
+    private String APPID;
+
+    public LocationApiResponse[] requestLocations(String name) throws URISyntaxException, IOException, InterruptedException {
         List<String> queryParameters = getQueryParameters(List.of(Q_KEY, LIMIT_KEY, APPID_KEY), List.of(name, LIMIT, APPID));
-        HttpRequest request = buildRequest(LOCATIONS_URI, queryParameters);
+        HttpRequest request = buildRequest(OPEN_WEATHER_URI + LOCATIONS_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 
-        validateLocationsResponse(response);
-        LocationApiResponse[] deserializeResponse = deserializeLocationsResponse(response);
-        return deserializeResponse[STARTED_INDEX];
+        validateLocationHttpResponses(response);
+        return deserializeLocationHttpResponses(response);
     }
 
     private List<String> getQueryParameters(List<String> keys, List<String> values) {
@@ -70,7 +78,7 @@ public class OpenWeatherService {
                 .send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private void validateLocationsResponse(HttpResponse<String> response) {
+    private void validateLocationHttpResponses(HttpResponse<String> response) {
         HttpStatus statusCode = HttpStatus.valueOf(response.statusCode());
         if (statusCode.is4xxClientError()) {
             throw new LocationClientException("An exception occurred while requesting locations, please check the location name");
@@ -81,7 +89,7 @@ public class OpenWeatherService {
         }
     }
 
-    private void validateWeatherResponse(HttpResponse<String> response) {
+    private void validateWeatherHttpResponse(HttpResponse<String> response) {
         HttpStatus statusCode = HttpStatus.valueOf(response.statusCode());
         if (statusCode.is4xxClientError()) {
             throw new WeatherClientException("An exception occurred while requesting weather, please check the latitude, longitude");
@@ -92,20 +100,20 @@ public class OpenWeatherService {
         }
     }
 
-    private LocationApiResponse[] deserializeLocationsResponse(HttpResponse<String> response) {
+    private LocationApiResponse[] deserializeLocationHttpResponses(HttpResponse<String> response) {
         return jsonMapper.readValue(response.body(), LocationApiResponse[].class);
     }
 
     public WeatherApiResponse requestWeather(String latitude, String longitude) throws URISyntaxException, IOException, InterruptedException {
         List<String> queryParameters = getQueryParameters(List.of(LAT_KEY, LON_KEY, APPID_KEY), List.of(latitude, longitude, APPID));
-        HttpRequest request = buildRequest(WEATHER_URI, queryParameters);
+        HttpRequest request = buildRequest(OPEN_WEATHER_URI + WEATHER_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
 
-        validateWeatherResponse(response);
-        return deserializeWeatherResponse(response);
+        validateWeatherHttpResponse(response);
+        return deserializeWeatherHttpResponse(response);
     }
 
-    private WeatherApiResponse deserializeWeatherResponse(HttpResponse<String> response) {
+    private WeatherApiResponse deserializeWeatherHttpResponse(HttpResponse<String> response) {
         return jsonMapper.readValue(response.body(), WeatherApiResponse.class);
     }
 }
