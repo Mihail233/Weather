@@ -16,8 +16,6 @@ import org.weather.config.OpenWeatherTestConfig;
 import org.weather.exception.OpenWeatherRejectedException;
 import org.weather.web.dto.api.LocationApiResponse;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +42,7 @@ class OpenWeatherServiceTest {
     }
 
     @Test
-    void responseFromOpenWeatherContainsExpectedLocationTest() throws URISyntaxException, IOException, InterruptedException {
+    void responseFromOpenWeatherContainsExpectedLocationTest() {
         wireMockServer.stubFor(get(urlMatching(String.format("/geo/1.0/direct\\?q=Moscow&limit=5&appid=%s", APPID)))
                 .willReturn(aResponse()
                         .withStatus(200)

@@ -9,8 +9,6 @@ import org.weather.common.service.WeatherService;
 import org.weather.web.dto.WeatherResponse;
 import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
@@ -19,7 +17,7 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/weather")
-    public String getWeatherPage(@RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, Model model) throws URISyntaxException, IOException, InterruptedException {
+    public String getWeatherPage(@RequestAttribute(name = PrivateEndpointInterceptor.USER_ID_ATTRIBUTE) Long userId, Model model) {
         List<WeatherResponse> weatherResponses = weatherService.getWeather(userId);
         model.addAttribute("weatherResponses", weatherResponses);
         return "index";

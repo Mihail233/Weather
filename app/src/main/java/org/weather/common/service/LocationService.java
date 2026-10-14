@@ -5,12 +5,10 @@ import org.weather.web.dto.LocationRemovalRequest;
 import org.weather.web.dto.LocationResponse;
 import org.weather.web.dto.LocationSearchRequest;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public interface LocationService {
-    List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException;
+    List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest);
 
     void addNewLocation(LocationAdditionRequest locationAdditionRequest, Long userId);
 

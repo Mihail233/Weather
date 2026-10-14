@@ -15,7 +15,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
-import java.net.http.HttpConnectTimeoutException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
@@ -55,7 +54,7 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     @Value("${openWeather.api.key}")
     private String APPID;
 
-    public LocationApiResponse[] requestLocations(String locationName) throws URISyntaxException, IOException, InterruptedException {
+    public LocationApiResponse[] requestLocations(String locationName) {
         List<String> queryParameters = getQueryParameters(List.of(Q_KEY, LIMIT_KEY, APPID_KEY), List.of(locationName, LIMIT, APPID));
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + LOCATIONS_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);
@@ -73,33 +72,37 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         return queryParameters;
     }
 
-    private HttpRequest buildRequest(String URI, List<String> queryParameters) throws URISyntaxException {
+    private HttpRequest buildRequest(String URI, List<String> queryParameters) {
         return HttpRequest.newBuilder()
                 .uri(buildURIWithQueryParameters(URI, queryParameters))
                 .GET()
                 .build();
     }
 
-    private URI buildURIWithQueryParameters(String URI, List<String> queryParameters) throws URISyntaxException {
-        return new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)));
+    private URI buildURIWithQueryParameters(String URI, List<String> queryParameters) {
+        try {
+            return new URI((URI + String.join(QUERY_PARAMETERS_SEPARATOR, queryParameters)));
+        } catch (URISyntaxException e) {
+            throw new OpenWeatherRejectedException("An exception occurred on the application side when calling OpenWeather");
+        }
     }
 
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
+    private HttpResponse<String> sendRequest(HttpRequest request) {
         try {
             return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (HttpConnectTimeoutException e) {
-            throw new OpenWeatherRejectedException("An service-side exception occurred while accessing the OpenWeather");
+        } catch (IOException | InterruptedException e) {
+            throw new OpenWeatherRejectedException("An exception occurred on the application side when calling OpenWeather");
         }
     }
 
     private void validateHttpResponses(HttpResponse<String> response) {
         HttpStatus statusCode = HttpStatus.valueOf(response.statusCode());
         if (statusCode.is4xxClientError()) {
-            throw new OpenWeatherRejectedException("An exception occurred while executing the request; please check the input parameters");
+            throw new OpenWeatherRejectedException("An exception occurred while executing the request; please check the request");
         }
 
         if (statusCode.is5xxServerError()) {
-            throw new OpenWeatherRejectedException("An service-side exception occurred while accessing the OpenWeather");
+            throw new OpenWeatherRejectedException("An exception occurred on the external service side when calling OpenWeather");
         }
     }
 
@@ -107,7 +110,7 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
         return jsonMapper.readValue(response.body(), LocationApiResponse[].class);
     }
 
-    public WeatherApiResponse requestWeather(String latitude, String longitude) throws URISyntaxException, IOException, InterruptedException {
+    public WeatherApiResponse requestWeather(String latitude, String longitude) {
         List<String> queryParameters = getQueryParameters(List.of(LAT_KEY, LON_KEY, APPID_KEY, UNITS_KEY), List.of(latitude, longitude, APPID, UNITS));
         HttpRequest request = buildRequest(OPEN_WEATHER_URI + WEATHER_PATH, queryParameters);
         HttpResponse<String> response = sendRequest(request);

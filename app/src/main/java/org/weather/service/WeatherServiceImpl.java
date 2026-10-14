@@ -12,8 +12,6 @@ import org.weather.web.dto.WeatherResponse;
 import org.weather.web.dto.api.WeatherApiResponse;
 import org.weather.web.mapper.WeatherMapper;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,13 +24,13 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherMapper weatherMapper;
 
-    public List<WeatherResponse> getWeather(Long userId) throws URISyntaxException, IOException, InterruptedException {
+    public List<WeatherResponse> getWeather(Long userId) {
         List<Location> locations = locationRepository.findAllByUserId(userId);
         List<Optional<WeatherApiResponse>> weatherApiResponses = requestWeather(locations);
         return weatherMapper.toResponseList(weatherApiResponses, locations);
     }
 
-    private List<Optional<WeatherApiResponse>> requestWeather(List<Location> locations) throws URISyntaxException, IOException, InterruptedException {
+    private List<Optional<WeatherApiResponse>> requestWeather(List<Location> locations) {
         List<Optional<WeatherApiResponse>> weatherApiResponses = new ArrayList<>();
         for (Location location : locations) {
             try {

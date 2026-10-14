@@ -20,8 +20,6 @@ import org.weather.web.dto.LocationSearchRequest;
 import org.weather.web.dto.api.LocationApiResponse;
 import org.weather.web.mapper.LocationMapper;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +36,7 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationMapper locationMapper;
 
-    public List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest) throws URISyntaxException, IOException, InterruptedException {
+    public List<LocationResponse> searchLocations(LocationSearchRequest locationSearchRequest) {
         LocationApiResponse[] locationApiResponses = openWeatherService.requestLocations(locationSearchRequest.getLocationName());
         return locationMapper.toResponseList(locationApiResponses);
     }

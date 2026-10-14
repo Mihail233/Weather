@@ -14,8 +14,6 @@ import org.weather.web.dto.LocationResponse;
 import org.weather.web.dto.LocationSearchRequest;
 import org.weather.web.interceptor.PrivateEndpointInterceptor;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
@@ -31,7 +29,7 @@ public class LocationController {
     }
 
     @PostMapping("/search")
-    public String searchLocationsByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) throws URISyntaxException, IOException, InterruptedException {
+    public String searchLocationsByName(HttpServletResponse response, @Valid @ModelAttribute LocationSearchRequest locationSearchRequest, Model model) {
         List<LocationResponse> locationResponses = locationService.searchLocations(locationSearchRequest);
         setResponseStatusIfNoLocations(response, locationResponses);
 
